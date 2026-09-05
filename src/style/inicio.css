@@ -1,0 +1,15 @@
+body{
+    background-color: rgb(8, 75, 75);
+}
+
+.card{
+    box-shadow: 3px, 3px, 5px #ccc;
+    background-color: lavender;
+    padding: 30px;
+    border-radius: 10px;
+}
+.realizarlogin{
+    width: 500px;
+    margin: auto;
+    padding-top: auto;
+}
