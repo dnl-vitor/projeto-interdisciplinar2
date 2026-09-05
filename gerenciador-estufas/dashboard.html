@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — GIE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles/variables.css">
+<link rel="stylesheet" href="src/styles/base.css">
+<link rel="stylesheet" href="src/styles/components.css">
+<style>
+  body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--mist-100); }
+  .stub-card {
+    max-width: 480px;
+    width: 100%;
+    background: var(--paper);
+    border: var(--border-hairline);
+    padding: var(--space-7);
+    margin: var(--space-5);
+  }
+  .stub-card .kicker { display:block; font-family: var(--font-mono); font-size: var(--step-1); color: var(--soil-gold-600); margin-bottom: var(--space-3); }
+  .session-box {
+    font-family: var(--font-mono);
+    font-size: var(--step-1);
+    background: var(--canopy-900);
+    color: var(--ink-on-dark);
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    margin-block: var(--space-5);
+  }
+  .session-box div { display:flex; justify-content: space-between; padding-block: var(--space-1); }
+  .session-box span:first-child { color: var(--ink-on-dark-muted); }
+</style>
+</head>
+<body>
+
+  <div class="stub-card">
+    <span class="kicker">Etapa concluída</span>
+    <h1 style="font-size: var(--step2); margin-bottom: var(--space-3);">Login confirmado</h1>
+    <p>O fluxo de autenticação está funcionando. O Dashboard completo — com os menus e permissões de cada perfil — é o próximo passo deste projeto.</p>
+
+    <div class="session-box" id="sessionBox">
+      <div><span>e-mail</span><span id="sessaoEmail">—</span></div>
+      <div><span>perfil</span><span id="sessaoPerfil">—</span></div>
+    </div>
+
+    <button type="button" class="btn btn-outline" id="logoutBtn">Sair e voltar ao login</button>
+  </div>
+
+  <script>
+    (function () {
+      var raw = window.localStorage.getItem('gie_sessao');
+      var sessao = raw ? JSON.parse(raw) : null;
+
+      if (!sessao) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      var perfilLabel = {
+        administrador: 'Administrador (Gestão)',
+        vendedor: 'Vendedor (Comercial)',
+        produtor: 'Produtor (Campo/Manejo)'
+      };
+
+      document.getElementById('sessaoEmail').textContent = sessao.email || '—';
+      document.getElementById('sessaoPerfil').textContent = perfilLabel[sessao.perfil] || sessao.perfil;
+
+      document.getElementById('logoutBtn').addEventListener('click', function () {
+        window.localStorage.removeItem('gie_sessao');
+        window.location.href = 'login.html';
+      });
+    })();
+  </script>
+</body>
+</html>
