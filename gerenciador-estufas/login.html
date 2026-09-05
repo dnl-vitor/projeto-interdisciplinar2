@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar — GIE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles/variables.css">
+<link rel="stylesheet" href="src/styles/base.css">
+<link rel="stylesheet" href="src/styles/components.css">
+<link rel="stylesheet" href="src/styles/login.css">
+</head>
+<body>
+
+<div class="login-shell">
+
+  <aside class="login-side">
+    <div>
+      <span class="brand-mark">EcoEstufa<span>GIE — Gestão Inteligente de Estufas</span></span>
+    </div>
+
+    <blockquote>
+      "Antes eu só sabia que uma planta tinha morrido depois que já era tarde. Agora o alerta chega no mesmo dia."
+      <span class="quote-role">Produtor, área de hortaliças</span>
+    </blockquote>
+
+    <div class="mini-telemetry">
+      <div>
+        <b>65%</b>
+        <span>Umidade do solo</span>
+      </div>
+      <div>
+        <b>6.8</b>
+        <span>pH do solo</span>
+      </div>
+      <div>
+        <b>80%</b>
+        <span>Caixa d'água</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="login-main">
+    <div class="login-card">
+      <a href="index.html" class="back-link">← Voltar para o site</a>
+
+      <h1>Acessar o sistema</h1>
+      <p class="lede">Entre com o e-mail e a senha cadastrados pelo administrador da sua estufa.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="loginEmail">E-mail</label>
+          <input type="email" id="loginEmail" name="loginEmail" required autocomplete="username" placeholder="voce@suaestufa.com.br">
+        </div>
+
+        <div class="field">
+          <label for="loginSenha">Senha</label>
+          <div class="password-field">
+            <input type="password" id="loginSenha" name="loginSenha" required autocomplete="current-password">
+            <button type="button" id="toggleSenha" aria-label="Mostrar senha">mostrar</button>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <label class="checkbox-row">
+            <input type="checkbox" id="lembrar" name="lembrar">
+            Lembrar-me
+          </label>
+          <a href="#">Esqueci minha senha</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="loginSubmit">Entrar</button>
+        <div class="form-status" id="loginStatus" role="status"></div>
+      </form>
+
+      <div class="demo-panel">
+        <span class="label">Modo de demonstração do protótipo</span>
+        <p>O login ainda não está conectado a um servidor real. Escolha um perfil para simular a experiência de cada tipo de usuário no Dashboard, que será construído na próxima etapa.</p>
+        <div class="field" style="margin-bottom: 0;">
+          <label for="perfilDemo">Perfil de acesso</label>
+          <select id="perfilDemo" name="perfilDemo">
+            <option value="administrador">Administrador (Gestão)</option>
+            <option value="vendedor">Vendedor (Comercial)</option>
+            <option value="produtor">Produtor (Campo/Manejo)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="divider-text">ou</div>
+
+      <p class="signup-note">Ainda não tem uma conta? <a href="index.html#cadastro">Cadastre sua estufa</a></p>
+    </div>
+  </main>
+
+</div>
+
+<script src="src/scripts/login.js"></script>
+</body>
+</html>
