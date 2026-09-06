@@ -1,3 +1,4 @@
 # ignorando arquivos
 *.txt
 *.docx
+/gerenciador-estufas
