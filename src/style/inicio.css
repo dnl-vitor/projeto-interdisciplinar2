@@ -1,25 +1,29 @@
 body{
     background-color: #16281d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
 .card{
-    box-shadow: 3px, 1px, 5px #3f3f3f;
+   box-shadow: 3px 1px 5px #3f3f3f;
     background-color: lavender;
     padding: 30px;
     border-radius: 10px;
-
 }
+
 .realizarlogin{
     width: 500px;
-    padding-top: auto;
     justify-content: center;
     margin: 0 auto;
-
 }
+
 img{
     width: 50px;
     height: 50px;
-    display: flex;
+    display: block;
     margin: 0 auto;
     justify-content: center;
    
@@ -27,26 +31,26 @@ img{
 
 .inf{
     text-align: center;
-
-
 }
 
 .imgsocial{
     border-radius: 50px;
     width: 50px;
-    box-shadow: 3px, 1px, 5px #3f3f3f;
+    box-shadow: 3px 1px 5px #3f3f3f;
 }
+
 h1{
     color: darkgreen;
     font-style: italic;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
 
 }
+
 .labelg > label{
     color: darkgreen;
     display: inline;
     font-style: italic;
-
 }
 
 .labelg > input{
@@ -58,18 +62,30 @@ h1{
     padding: 10px;
     margin-bottom: 10px;
     font-style: italic;
-    box-shadow: 3px, 1px, 5px #3f3f3f;
+    margin: 0 auto 10px auto; 
+    display: block;
+    text-align: center;
+    box-shadow: 3px 1px 5px #3f3f3f;
 }
 
 .label > label{
     display: inline;
     font-style: italic;
+    display: block;
+    margin: 0 auto 10px auto;
+    text-align: center;
 }
 
-.botaoentrar{
-    width: 40px;                //pesonalizar botaokkkkkkkkk
-    height: 20px;
-    border: 0;
-    padding: 10px;
+.botaoentrar button{
+    background-image: linear-gradient(to right, darkgreen, #3f3f3f);
     margin-bottom: 10px;
+    height: 40px;
+    width: 50%;
+    border: 0;
+    border-radius: 50px;
+    color: white; 
+    cursor: pointer;
+    margin: 0 auto 10px auto; 
+    display: block;
+    box-shadow: 3px 1px 5px #3f3f3f;
 }
