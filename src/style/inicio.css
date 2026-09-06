@@ -1,15 +1,75 @@
 body{
-    background-color: rgb(8, 75, 75);
+    background-color: #16281d;
 }
 
 .card{
-    box-shadow: 3px, 3px, 5px #ccc;
+    box-shadow: 3px, 1px, 5px #3f3f3f;
     background-color: lavender;
     padding: 30px;
     border-radius: 10px;
+
 }
 .realizarlogin{
     width: 500px;
-    margin: auto;
     padding-top: auto;
+    justify-content: center;
+    margin: 0 auto;
+
+}
+img{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+   
+}
+
+.inf{
+    text-align: center;
+
+
+}
+
+.imgsocial{
+    border-radius: 50px;
+    width: 50px;
+    box-shadow: 3px, 1px, 5px #3f3f3f;
+}
+h1{
+    color: darkgreen;
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+.labelg > label{
+    color: darkgreen;
+    display: inline;
+    font-style: italic;
+
+}
+
+.labelg > input{
+    border-radius: 50px;
+    outline: 0;
+    width: 40%;
+    height: 20px;
+    border: 0;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-style: italic;
+    box-shadow: 3px, 1px, 5px #3f3f3f;
+}
+
+.label > label{
+    display: inline;
+    font-style: italic;
+}
+
+.botaoentrar{
+    width: 40px;                //pesonalizar botaokkkkkkkkk
+    height: 20px;
+    border: 0;
+    padding: 10px;
+    margin-bottom: 10px;
 }
