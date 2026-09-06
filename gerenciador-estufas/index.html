@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIE — Gestão Inteligente de Estufas</title>
+<meta name="description" content="Ferramenta de consulta e manejo administrativo para estufas: sensores, irrigação, insumos e plantio em um só lugar, sem automação às cegas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles/variables.css">
+<link rel="stylesheet" href="src/styles/base.css">
+<link rel="stylesheet" href="src/styles/components.css">
+<link rel="stylesheet" href="src/styles/landing.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-row">
+    <a href="#home" class="brand">
+      <strong>EcoEstufa</strong>
+      <span>GIE</span>
+    </a>
+
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#funcionalidades">Funcionalidades</a></li>
+        <li><a href="#cadastro">Cadastro</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="#suporte">Suporte</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-ghost-dark"><span>Entrar</span> →</a>
+      <a href="#cadastro" class="btn btn-primary">Cadastrar estufa</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HOME ============ -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-copy">
+        <span class="hero-eyebrow">Um projeto alinhado ao ODS 9: Indústria, Inovação e Infraestrutura</span>
+        <h1>Gestão inteligente para estufas reais</h1>
+        <p class="lede">O GIE reúne os dados de sensores, irrigação, insumos e plantio da sua estufa em um só painel — para que a Gestão, o time Comercial e a Produção decidam com informação, não no escuro.</p>
+        <div class="hero-actions">
+          <a href="#cadastro" class="btn btn-primary">Cadastrar minha estufa</a>
+          <a href="#funcionalidades" class="btn btn-ghost-dark">Ver funcionalidades</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <b>3</b>
+            <span>perfis de acesso, cada um com sua própria visão</span>
+          </div>
+          <div class="stat">
+            <b>24/7</b>
+            <span>leitura de sensores de solo, água e ambiente</span>
+          </div>
+          <div class="stat">
+            <b>100%</b>
+            <span>decisões nas mãos de quem cuida da estufa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="telemetry-panel">
+          <span class="telemetry-title"><span class="dot"></span> Leitura em tempo real — Canteiro A</span>
+          <div class="telemetry-row">
+            <span class="metric-label">Umidade do solo</span>
+            <span class="metric-value">65%</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="metric-label">pH do solo</span>
+            <span class="metric-value">6.8</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="metric-label">Caixa d'água</span>
+            <span class="metric-value">80%</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="metric-label">Estoque crítico</span>
+            <span class="metric-value" style="color: var(--soil-gold-500);">1 item</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FUNCIONALIDADES ============ -->
+  <section class="section" id="funcionalidades">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Funcionalidades</span>
+        <h2>O que o sistema mostra — não o que decide por você</h2>
+        <p>O GIE foi pensado como uma ferramenta de consulta e manejo administrativo. Ele organiza o que está acontecendo na estufa; a decisão sobre irrigar, corrigir o solo ou repor insumos continua com a sua equipe.</p>
+      </div>
+
+      <div class="feature-list">
+        <article class="feature-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 3v2h6V3"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>
+          <h4>Relatório geral da estufa</h4>
+          <p>Reúne o status das áreas de plantio, dos reservatórios e da qualidade do solo em um relatório único, gerado sob demanda.</p>
+        </article>
+
+        <article class="feature-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 0 0-5 5v3.5L5 16h14l-2-4.5V8a5 5 0 0 0-5-5Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+          <h4>Alertas globais</h4>
+          <p>Avisa quando a caixa d'água está baixa, o pH sai da faixa ideal, uma área precisa de irrigação ou um insumo está acabando.</p>
+        </article>
+
+        <article class="feature-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>
+          <h4>Controle de irrigação</h4>
+          <p>Calcula o volume de água ideal por canteiro e deixa o acionamento do ciclo de irrigação com a pessoa responsável pelo campo.</p>
+        </article>
+
+        <article class="feature-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"/><path d="M3 8.5V16l9 4.5 9-4.5V8.5"/><line x1="12" y1="13" x2="12" y2="20.5"/></svg>
+          <h4>Gestão de insumos</h4>
+          <p>Acompanha o estoque de fertilizantes, corretivos e sementes, com limite mínimo configurável para gerar alerta por item.</p>
+        </article>
+
+        <article class="feature-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 8 12 10 6 14 18 16 12 21 12"/></svg>
+          <h4>Monitoramento de sensores</h4>
+          <p>Consolida leituras de umidade do solo, pH e temperatura ambiente de cada área da estufa em um único lugar.</p>
+        </article>
+
+        <article class="feature-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><circle cx="17.5" cy="8.5" r="2.4"/><path d="M15.5 13.6c2.5.3 4 2.2 4 5.1"/></svg>
+          <h4>Perfis de acesso</h4>
+          <p>Separa o que a Gestão, o time Comercial e a Produção enxergam e podem alterar dentro do sistema.</p>
+        </article>
+      </div>
+
+      <div style="margin-top: var(--space-8);">
+        <div class="monitor-intro">
+          <div>
+            <h3>Mapa de disponibilidade de culturas</h3>
+            <p style="margin-bottom:0;">Exemplo de leitura consolidada — os valores mudam conforme os sensores da sua estufa.</p>
+          </div>
+          <div class="monitor-legend">
+            <span class="badge badge-ok">Adequado</span>
+            <span class="badge badge-warn">Atenção</span>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+        </div>
+
+        <div class="monitor-table-wrap">
+          <table class="monitor-table">
+            <thead>
+              <tr>
+                <th>Área</th>
+                <th>Cultura</th>
+                <th>Umidade do solo</th>
+                <th>pH do solo</th>
+                <th>Irrigação</th>
+                <th>Insumo crítico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label-cell">Canteiro A</td>
+                <td class="label-cell">Tomate</td>
+                <td>65% <span class="badge badge-ok">Adequado</span></td>
+                <td>6.8 <span class="badge badge-ok">Adequado</span></td>
+                <td><span class="badge badge-ok">Não precisa</span></td>
+                <td>Fertilizante NPK <span class="badge badge-ok">50 kg</span></td>
+              </tr>
+              <tr>
+                <td class="label-cell">Canteiro A</td>
+                <td class="label-cell">Alface</td>
+                <td>25% <span class="badge badge-warn">Abaixo</span></td>
+                <td>6.8 <span class="badge badge-ok">Adequado</span></td>
+                <td><span class="badge badge-warn">Irrigar em breve</span></td>
+                <td>Substrato <span class="badge badge-critical">4 kg</span></td>
+              </tr>
+              <tr>
+                <td class="label-cell">Canteiro B</td>
+                <td class="label-cell">Pepino</td>
+                <td>70% <span class="badge badge-ok">Adequado</span></td>
+                <td>6.2 <span class="badge badge-warn">Ácido</span></td>
+                <td><span class="badge badge-ok">Não precisa</span></td>
+                <td>Calcário <span class="badge badge-ok">20 kg</span></td>
+              </tr>
+              <tr>
+                <td class="label-cell">Canteiro C</td>
+                <td class="label-cell">Pimentão</td>
+                <td>18% <span class="badge badge-critical">Solo seco</span></td>
+                <td>6.9 <span class="badge badge-ok">Adequado</span></td>
+                <td><span class="badge badge-critical">Irrigar agora</span></td>
+                <td>Sementes <span class="badge badge-ok">12 un</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CADASTRO ============ -->
+  <section class="section section-tinted" id="cadastro">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Cadastro</span>
+        <h2>Cadastre sua empresa ou estufa</h2>
+        <p>Leva menos de cinco minutos. Depois de aprovado, você recebe o acesso para instalar o sistema ou usar direto pelo navegador.</p>
+      </div>
+
+      <div class="cadastro-grid">
+        <div class="cadastro-panel">
+          <form id="cadastroForm" novalidate>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="empresaNome">Nome da empresa ou produtor</label>
+                <input type="text" id="empresaNome" name="empresaNome" required autocomplete="organization">
+              </div>
+              <div class="field">
+                <label for="documento">CNPJ ou CPF</label>
+                <input type="text" id="documento" name="documento" required inputmode="numeric">
+              </div>
+              <div class="field">
+                <label for="areaEstufa">Área aproximada (m²)</label>
+                <input type="number" id="areaEstufa" name="areaEstufa" min="0" step="1">
+              </div>
+              <div class="field">
+                <label for="responsavel">Responsável técnico</label>
+                <input type="text" id="responsavel" name="responsavel" required autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="cadastroEmail">E-mail</label>
+                <input type="email" id="cadastroEmail" name="cadastroEmail" required autocomplete="email">
+              </div>
+              <div class="field full">
+                <label for="telefone">Telefone <span class="hint">(com DDD)</span></label>
+                <input type="tel" id="telefone" name="telefone" autocomplete="tel">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Solicitar cadastro</button>
+            <p class="form-note">Ao enviar, você concorda em ser contatado pela equipe do GIE para concluir a aprovação.</p>
+            <div class="form-status" id="cadastroStatus" role="status"></div>
+          </form>
+
+          <div class="download-box">
+            <span class="file-meta">instalador-gie-v1.zip (42 MB)</span>
+            <h4 style="color: var(--ink-on-dark); margin-bottom: var(--space-2);">Prefere instalar no computador da estufa?</h4>
+            <p>Disponível para Windows e Linux. Se preferir, pule esta etapa e acesse pelo navegador assim que seu cadastro for aprovado.</p>
+            <button type="button" class="btn btn-gold" id="downloadBtn">Baixar instalador</button>
+          </div>
+        </div>
+
+        <div class="tutorial-panel">
+          <h3>Como colocar sua estufa para funcionar</h3>
+          <ol class="step-list">
+            <li>
+              <div>
+                <h5>Preencha o cadastro</h5>
+                <p>Envie os dados ao lado. A equipe do GIE confirma o cadastro por e-mail em até um dia útil.</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <h5>Baixe ou acesse o sistema</h5>
+                <p>Instale a aplicação no computador da propriedade ou acesse direto pelo navegador — os dados são os mesmos nas duas formas.</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <h5>Cadastre sua equipe</h5>
+                <p>Já dentro do sistema, o administrador cria um acesso para cada funcionário e escolhe se ele é da Gestão, do Comercial ou da Produção.</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <h5>Registre a estufa</h5>
+                <p>Cadastre áreas, plantas e insumos. A partir daí, os alertas e relatórios passam a refletir o cultivo real.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTATO ============ -->
+  <section class="section" id="contato">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Contato</span>
+        <h2>Fale com o time do GIE</h2>
+        <p>Dúvidas sobre o sistema, parcerias ou uma demonstração para sua cooperativa — escreva para a gente.</p>
+      </div>
+
+      <div class="contato-grid">
+        <form id="contatoForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="contatoNome">Nome</label>
+              <input type="text" id="contatoNome" name="contatoNome" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="contatoEmailField">E-mail</label>
+              <input type="email" id="contatoEmailField" name="contatoEmailField" required autocomplete="email">
+            </div>
+            <div class="field full">
+              <label for="assunto">Assunto</label>
+              <select id="assunto" name="assunto">
+                <option>Dúvida sobre o sistema</option>
+                <option>Suporte técnico</option>
+                <option>Parceria comercial</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar mensagem</button>
+          <div class="form-status" id="contatoStatus" role="status"></div>
+        </form>
+
+        <div>
+          <ul class="contact-info-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+              <span>contato@gie-estufas.com.br</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 3h3l1.5 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5a2 2 0 0 1 2-2Z"/></svg>
+              <span>(11) 4000-1234 (WhatsApp)</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+              <span>Núcleo de Inovação Agrícola — Campinas, SP</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              <span>Segunda a sexta, das 8h às 18h</span>
+            </li>
+          </ul>
+          <p style="font-size: var(--step-1); color: var(--ink-500);">Já é cliente? A <a href="#suporte" style="color: var(--leaf-600); font-weight:600;">Central de Suporte</a> costuma responder mais rápido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPE DO PROJETO ============ -->
+  <section class="section section-tinted" id="equipe">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Equipe</span>
+        <h2>Quem constrói o GIE</h2>
+        <p>Um pequeno time responsável pela lógica de negócio, pela interface e pela relação com quem usa o sistema no dia a dia.</p>
+      </div>
+
+      <!-- Substitua os cards abaixo pelos nomes reais da equipe do projeto -->
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">AS</div>
+          <h4>Ana Souza</h4>
+          <span class="role">Coordenação do projeto</span>
+          <p>Alinha o escopo do sistema às necessidades reais de quem administra a estufa.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">LA</div>
+          <h4>Lucas Andrade</h4>
+          <span class="role">Front-end</span>
+          <p>Constrói a landing page, a autenticação e o painel que você está vendo agora.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">MF</div>
+          <h4>Marina Ferreira</h4>
+          <span class="role">Back-end e modelagem</span>
+          <p>Responsável pelas entidades do sistema — sensores, áreas, insumos e irrigação.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">RL</div>
+          <h4>Rafael Lima</h4>
+          <span class="role">Experiência e suporte</span>
+          <p>Cuida do onboarding de novas estufas e do canal de suporte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SUPORTE ============ -->
+  <section class="section" id="suporte">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Suporte</span>
+        <h2>Perguntas frequentes</h2>
+        <p>Não encontrou o que precisava? Fale com a gente por um dos canais ao lado.</p>
+      </div>
+
+      <div class="support-grid">
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Preciso de internet para usar o sistema?
+              <span class="plus"></span>
+            </button>
+            <div class="faq-answer">
+              <p>A versão desktop registra os dados localmente e sincroniza quando a conexão está disponível. A versão web exige internet para funcionar.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Quantos funcionários posso cadastrar?
+              <span class="plus"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Não há limite de funcionários. Cada um recebe um perfil de Gestão, Comercial ou Produção, definido pelo administrador da conta.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              O sistema aciona a irrigação sozinho?
+              <span class="plus"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Não. O GIE mostra o volume de água recomendado e o histórico dos sensores, mas quem decide e aciona a irrigação é a pessoa responsável pelo canteiro.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Como corrijo uma leitura de sensor errada?
+              <span class="plus"></span>
+            </button>
+            <div class="faq-answer">
+              <p>O perfil Produtor pode sobrescrever manualmente a leitura de um sensor de umidade ou pH, registrando o novo valor lido no equipamento.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Posso usar o sistema em mais de uma estufa?
+              <span class="plus"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Sim. Cada empresa cadastrada pode registrar várias áreas e reservatórios dentro da mesma conta.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="support-channels">
+          <div class="channel-card">
+            <span class="label">E-mail</span>
+            <p style="margin-bottom: var(--space-2);">suporte@gie-estufas.com.br</p>
+            <p style="margin-bottom:0; font-size: var(--step-1); color: var(--ink-500);">Resposta em até 1 dia útil.</p>
+          </div>
+          <div class="channel-card">
+            <span class="label">WhatsApp</span>
+            <p style="margin-bottom: var(--space-2);">(11) 4000-1234</p>
+            <p style="margin-bottom:0; font-size: var(--step-1); color: var(--ink-500);">Segunda a sexta, das 8h às 18h.</p>
+          </div>
+          <div class="channel-card">
+            <span class="label">Central de ajuda</span>
+            <p style="margin-bottom: var(--space-2);">Tutoriais em vídeo e guias passo a passo.</p>
+            <a href="#" style="color: var(--leaf-600); font-weight:600; font-size: var(--step-1);">Acessar central →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom: var(--space-4);">
+          <strong>EcoEstufa</strong>
+          <span>GIE</span>
+        </div>
+        <p style="color: var(--ink-on-dark-muted); font-size: var(--step-1); max-width: 32ch;">Gestão inteligente de estufas: sensores, irrigação e insumos organizados para decisões melhores.</p>
+        <span class="ods-tag" style="margin-top: var(--space-4);">ODS 9: Indústria, Inovação e Infraestrutura</span>
+      </div>
+      <div>
+        <h5>Produto</h5>
+        <ul>
+          <li><a href="#funcionalidades">Funcionalidades</a></li>
+          <li><a href="#cadastro">Cadastro</a></li>
+          <li><a href="login.html">Entrar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#equipe">Equipe</a></li>
+          <li><a href="#suporte">Suporte</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Termos de uso</a></li>
+          <li><a href="#">Privacidade</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 GIE — Gestão Inteligente de Estufas.</span>
+      <span>Projeto acadêmico de manejo administrativo para estufas.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="src/scripts/landing.js"></script>
+</body>
+</html>
