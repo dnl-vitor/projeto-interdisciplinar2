@@ -1,0 +1,69 @@
+/* =========================================================
+   TOKENS DE DESIGN — Sistema GIE (Gestão Inteligente de Estufas)
+   Paleta inspirada em folhagem, terra e telemetria de sensores.
+   ========================================================= */
+
+:root {
+  /* ---- Cor: base ---- */
+  --canopy-900: #16281d;   /* verde copa, quase preto — fundo do hero/nav */
+  --canopy-800: #1e3a29;
+  --canopy-700: #274a34;
+  --leaf-600: #2f6b45;     /* verde folha — ações primárias */
+  --leaf-500: #3c7f52;
+  --sprout-400: #7bab7f;   /* verde broto — apoio, ícones */
+  --sprout-200: #c7dcc4;
+  --mist-100: #eef2ea;     /* fundo claro, esverdeado (não creme) */
+  --mist-50: #f6f8f4;
+  --paper: #fbfcfa;
+
+  /* ---- Cor: acento terroso (não terracota) ---- */
+  --soil-gold-600: #a8721f;
+  --soil-gold-500: #c98a2e;
+  --soil-gold-100: #f4e6cc;
+
+  /* ---- Cor: alertas (dados de sensores) ---- */
+  --alert-amber-600: #b3661a;
+  --alert-amber-100: #f7e3c8;
+  --alert-red-600: #a63b30;
+  --alert-red-100: #f5dcd8;
+  --ok-600: #2f6b45;
+  --ok-100: #dcead9;
+
+  /* ---- Texto ---- */
+  --ink-900: #17241c;
+  --ink-700: #3b4a3f;
+  --ink-500: #647065;
+  --ink-on-dark: #eef2ea;
+  --ink-on-dark-muted: #b7c7ba;
+
+  /* ---- Tipografia ---- */
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Work Sans', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+
+  --step-1: clamp(0.85rem, 0.82rem + 0.15vw, 0.9rem);
+  --step0: clamp(1rem, 0.96rem + 0.2vw, 1.05rem);
+  --step1: clamp(1.2rem, 1.1rem + 0.4vw, 1.35rem);
+  --step2: clamp(1.5rem, 1.3rem + 0.8vw, 1.85rem);
+  --step3: clamp(1.9rem, 1.5rem + 1.6vw, 2.6rem);
+  --step4: clamp(2.4rem, 1.8rem + 2.6vw, 3.6rem);
+
+  /* ---- Espaçamento (escala 4px) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+
+  /* ---- Layout ---- */
+  --content-width: 1180px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --border-hairline: 1px solid rgba(23, 36, 28, 0.12);
+  --border-hairline-dark: 1px solid rgba(238, 242, 234, 0.16);
+  --shadow-soft: 0 1px 2px rgba(23, 36, 28, 0.06), 0 8px 24px -12px rgba(23, 36, 28, 0.18);
+}
