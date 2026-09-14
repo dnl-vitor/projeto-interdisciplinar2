@@ -1,0 +1,10 @@
+body{
+	background-color: #16281d;
+}
+
+.textGIE{
+	display: block;
+	margin: 0 auto 10px auto;
+	text-align: center;
+	color: white;
+}
