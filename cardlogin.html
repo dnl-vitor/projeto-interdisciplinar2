@@ -3,50 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD:index/cardlogin.html
-    <link rel="stylesheet" href="style/cardlogin.css">
-    <link rel="stylesheet" href="card.js">
-=======
-    <link rel="stylesheet" href="src/style/inicio.css">
->>>>>>> 8f191625d55d5dbcf02c90d253b22c0e42920664:cardlogin.html
+    <link rel="stylesheet" href="src/style/cardlogin.css">
     <title>login</title>
 </head>
 <body>
-    <section login>
-        <form class="realizarlogin">
-            <div class="card">
-                <div class="inf">
-                    <img class="imgsocial" src="src/imagens/usuario-img.jpg" alt="usuario"> 
-                    <h1>login</h1>  
-                    <p>faça seu login para gerenciar seus negocios</p>
-                </div>
+    <!-- Corrigido: 'login' transformado em um ID ou classe -->
+    <section id="login-section">
+        <div class="card">
+            <div class="inf">
+                <img class="imgsocial" src="src/imagens/usuario-img.jpg" alt="usuario"> 
+                <h1>login</h1>  
+                <p>faça seu login para gerenciar seus negocios</p>
+            </div>
 
-            <form id="logincard"> 
-        
-
+            <!-- Corrigido: Removido o formulário duplicado que envolvia o card -->
+            <form id="meu-formulario"> 
                 <div class="labelg"> 
                     <label></label>
-                    <input type="email" name="email" placeholder="email" required>
+                    <!-- Corrigido: Adicionado id="email" para o JS conseguir encontrar o campo -->
+                    <input type="email" id="email" name="email" placeholder="email" required>
                 </div>
 
                 <div class="labelg">
                     <label></label>
-                    <input type="password" name="senha" placeholder="senha"required>
+                    <!-- Corrigido: Adicionado id="senha" para o JS conseguir encontrar o campo -->
+                    <input type="password" id="senha" name="senha" placeholder="senha" required>
                 </div>
 
                 <div class="label">
-                    <label><input type="checkbox">lembar senha</label>
+                    <label><input type="checkbox">lembrar senha</label>
                 </div>
 
                 <div class="botaoentrar">
-                    <button type="submit"><acessar>entrar</acessar></button>
+                    <!-- Corrigido: A tag <acessar> não existe no HTML, deixado apenas o texto -->
+                    <button type="submit">entrar</button>
                 </div>
-
             </form>
 
-            </div>
-
-        </form>
+            <!-- O script deve ficar preferencialmente no final do body -->
+            <script src="card.js"></script>
+        </div>
     </section> 
 </body>
 </html>
