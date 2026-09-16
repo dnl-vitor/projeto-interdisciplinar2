@@ -78,6 +78,8 @@ h1{
     display: block;
     text-align: center;
     box-shadow: 3px 1px 5px #3f3f3f;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
 }
 
 .label > label{
