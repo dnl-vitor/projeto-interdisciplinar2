@@ -1,5 +1,12 @@
 body{
-    background-color: #16281d;
+    transition: background-image 0.8s ease-in-out;
+    position: relative;
+    /*background-color: #16281d;*/
+    /*background-image: url('../imagens/image.png');*/
+    background-size: cover; /* Garante que a imagem cubra toda a área */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    background-position: center; /* Centraliza a imagem */
+    height: 100vh; /* Garante altura mínima da viewport */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,10 +15,15 @@ body{
 }
 
 .card{
-   box-shadow: 3px 1px 5px #3f3f3f;
+    box-shadow: 3px 1px 5px #3f3f3f;
     background-color: lavender;
     padding: 30px;
-    border-radius: 50px;
+    border-radius: 20px;
+    background-color: rgba(230, 230, 250, 0.10); /* lavanda translucido */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
 }
 
 .realizarlogin{
@@ -21,8 +33,8 @@ body{
 }
 
 img{
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     display: block;
     margin: 0 auto;
     justify-content: center;
@@ -34,15 +46,15 @@ img{
 }
 
 .imgsocial{
-    border-radius: 50px;
-    width: 50px;
+    border-radius: 20px;
+    width: 70px;
     box-shadow: 3px 1px 5px #3f3f3f;
 }
 
 h1{
     color: darkgreen;
-    font-style: italic;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: unset;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: center;
 
 }
@@ -54,7 +66,7 @@ h1{
 }
 
 .labelg > input{
-    border-radius: 50px;
+    border-radius: 20px;
     outline: 0;
     width: 40%;
     height: 20px;
@@ -74,6 +86,7 @@ h1{
     display: block;
     margin: 0 auto 10px auto;
     text-align: center;
+    color: white;
 }
 
 .botaoentrar button{
@@ -82,7 +95,7 @@ h1{
     height: 40px;
     width: 50%;
     border: 0;
-    border-radius: 50px;
+    border-radius: 20px;
     color: white; 
     cursor: pointer;
     margin: 0 auto 10px auto; 
