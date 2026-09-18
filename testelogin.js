@@ -21,10 +21,14 @@ const imagensPlantas = [
     'src/imagens/fundo1.jpg',
     'src/imagens/fundo2.jpg',
     'src/imagens/fundo3.jpg',
+<<<<<<< HEAD
     'src/imagens/fundo4.jpg',
     'src/imagens/fundo5.jpg',
     'src/imagens/fundo6.jpg',
     'src/imagens/fundo7.jpg'
+=======
+    'src/imagens/fundo4.jpg'
+>>>>>>> 76be9a0 (blabla)
   ];
       
       
