@@ -7,7 +7,7 @@ document.getElementById('meu-formulario').addEventListener('submit', function(ev
 
     if (email === "teste@email.com" && senha === "123456"){
         // Redireciona o usuário para a página do dashboard
-        location.href = "index_dashboard.html"; 
+        location.href = "index_dashboard.html";
         
     } else {
         alert("senha ou email incorreto");
