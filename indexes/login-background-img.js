@@ -1,20 +1,20 @@
 
 const imagensPlantas = [
     {
-        imagem: 'src/imagens/fundo1.jpg',
+        imagem: '../src/imagens/fundo1.jpg',
     },
     {
-        imagem: 'src/imagens/fundo2.jpg',
+        imagem: '../src/imagens/fundo2.jpg',
     },
     {
-        imagem: 'src/imagens/fundo3.jpg',
+        imagem: '../src/imagens/fundo3.jpg',
         cor: '#ffffff'
     },
     {
-        imagem: 'src/imagens/fundo4.jpg',
+        imagem: '../src/imagens/fundo4.jpg',
     },
     {
-        imagem: 'src/imagens/fundo5.jpg',
+        imagem: '../src/imagens/fundo5.jpg',
         cor: '#ffffff'
     }
 ];
