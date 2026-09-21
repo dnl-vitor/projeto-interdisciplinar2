@@ -1,168 +1,436 @@
-body{
-    transition: background-image 0.8s ease-in-out;
-    position: relative;
-    /*background-color: #16281d;*/
-    /*background-image: url('../imagens/image.png');*/
-    background-size: cover; /* Garante que a imagem cubra toda a área */
-    background-repeat: no-repeat; /* Evita repetição da imagem */
-    background-position: center; /* Centraliza a imagem */
-    height: 100vh; /* Garante altura mínima da viewport */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+
+    position: relative;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+        sans-serif;
+
+    perspective: 1200px;
 }
 
-<<<<<<< HEAD
-.card{
-=======
+/* =========================
+   FUNDO ESCURO
+========================= */
+
 body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     inset: 0;
+
     background: rgba(0, 0, 0, 0.35);
+
     z-index: 0;
+    pointer-events: none;
 }
+
+/* =========================
+   CARD 3D + GLASS
+========================= */
 
 .card {
     position: relative;
     z-index: 1;
-}
 
-
-.card{
     width: 40vw;
-    height: 70vh;
->>>>>>> 76be9a0 (blabla)
-    box-shadow: 3px 1px 5px #3f3f3f;
-    background-color: lavender;
+    min-height: 70vh;
+
     padding: 30px;
+
     border-radius: 20px;
-    background-color: rgba(230, 230, 250, 0.10); /* lavanda translucido */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* Safari */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
+
+    background: rgba(230, 230, 250, 0.10);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.35),
+        0 5px 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
+    transform: translateY(0);
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+
+    overflow: hidden;
 }
 
-.realizarlogin{
+/* brilho do card */
+
+.card::before {
+    content: "";
+    position: absolute;
+
+    top: -50%;
+    left: -50%;
+
+    width: 200%;
+    height: 200%;
+
+    background: linear-gradient(
+        120deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 65%
+    );
+
+    transform: rotate(10deg);
+
+    pointer-events: none;
+}
+
+/* elevação do card */
+
+.card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 25px 45px rgba(0, 0, 0, 0.45),
+        0 8px 15px rgba(0, 80, 0, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+/* =========================
+   ÁREA DE LOGIN
+========================= */
+
+.realizarlogin {
     width: 500px;
+    max-width: 100%;
+
     justify-content: center;
     margin: 0 auto;
 }
 
-img{
-<<<<<<< HEAD
-    width: 70px;
-    height: 70px;
-=======
+/* =========================
+   IMAGEM
+========================= */
+
+img {
     width: 110px;
     height: 110px;
->>>>>>> 76be9a0 (blabla)
+
     display: block;
     margin: 0 auto;
-    justify-content: center;
-   
+
+    object-fit: cover;
+
+    border-radius: 20px;
+
+    filter:
+        drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
 }
 
-.inf{
+img:hover {
+    transform: translateY(-5px) scale(1.03);
+
+    filter:
+        drop-shadow(0 10px 15px rgba(0, 70, 0, 0.5));
+}
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.inf {
     text-align: center;
 }
 
-.imgsocial{
-    border-radius: 20px;
-<<<<<<< HEAD
-    width: 70px;
-=======
+/* =========================
+   IMAGENS SOCIAIS
+========================= */
+
+.imgsocial {
     width: 110px;
->>>>>>> 76be9a0 (blabla)
-    box-shadow: 3px 1px 5px #3f3f3f;
-}
 
-h1{
-    color: darkgreen;
-    font-style: unset;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    text-align: center;
-
-}
-
-.labelg > label{
-    color: darkgreen;
-    display: inline;
-    font-style: italic;
-}
-
-.labelg > input{
     border-radius: 20px;
-    outline: 0;
-<<<<<<< HEAD
-    width: 40%;
-=======
-     width: 31vw;
->>>>>>> 76be9a0 (blabla)
-    height: 20px;
-    border: 0;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-style: italic;
-    margin: 0 auto 10px auto; 
-    display: block;
-    text-align: center;
-    box-shadow: 3px 1px 5px #3f3f3f;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* Safari */
+
+    box-shadow:
+        0 5px 10px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-.label > label{
+.imgsocial:hover {
+    transform:
+        translateY(-5px)
+        rotate(-2deg)
+        scale(1.05);
+
+    box-shadow:
+        0 10px 20px rgba(0, 80, 0, 0.45);
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+h1 {
+    color: darkgreen;
+
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+
+    text-align: center;
+
+    text-shadow:
+        1px 2px 3px rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.3s ease,
+        text-shadow 0.3s ease;
+}
+
+h1:hover {
+    text-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   LABEL
+========================= */
+
+.labelg > label {
+    color: darkgreen;
+
     display: inline;
+
     font-style: italic;
+
+    text-shadow:
+        1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.label > label {
     display: block;
+
     margin: 0 auto 10px auto;
+
     text-align: center;
+
     color: white;
+
+    font-style: italic;
 }
 
-.botaoentrar button{
-<<<<<<< HEAD
-    background-image: linear-gradient(to right, darkgreen, #3f3f3f);
-    margin-bottom: 10px;
+/* =========================
+   INPUT 3D
+========================= */
+
+.labelg > input {
+    width: 31vw;
     height: 40px;
-    width: 50%;
-=======
-    
-    background-image: linear-gradient(to right, darkgreen, #3f3f3f);
-    margin-bottom: 10px;
-    height: 40px;
-     width: 32vw;
->>>>>>> 76be9a0 (blabla)
-    border: 0;
-    border-radius: 20px;
-    color: white; 
-    cursor: pointer;
-    margin: 0 auto 10px auto; 
+
+    margin: 0 auto 15px auto;
+
     display: block;
-    box-shadow: 3px 1px 5px #3f3f3f;
-<<<<<<< HEAD
+
+    padding: 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 20px;
+
+    outline: none;
+
+    text-align: center;
+
+    font-style: italic;
+
+    color: #222;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 4px 0 rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
-=======
-    box-sizing: border-box;
+
+/* input ao passar o mouse */
+
+.labelg > input:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 0 rgba(0, 0, 0, 0.15),
+        0 10px 18px rgba(0, 0, 0, 0.25);
 }
+
+/* input selecionado */
+
+.labelg > input:focus {
+    transform: translateY(-2px);
+
+    background: white;
+
+    box-shadow:
+        0 5px 0 #064d06,
+        0 10px 20px rgba(0, 80, 0, 0.35);
+
+    border: 1px solid darkgreen;
+}
+
+/* =========================
+   BOTÃO 3D
+========================= */
+
 .botaoentrar {
     width: 100%;
 }
 
+.botaoentrar button {
+    position: relative;
+
+    width: 32vw;
+    height: 40px;
+
+    margin: 0 auto 15px auto;
+
+    display: block;
+
+    border: none;
+    border-radius: 20px;
+
+    color: white;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #087a08,
+            #064d06
+        );
+
+    box-shadow:
+        0 5px 0 #033803,
+        0 8px 12px rgba(0, 0, 0, 0.4);
+
+    transition:
+        transform 1.0s ease,
+        box-shadow 1.0s ease;
+}
+
+/* brilho do botão */
+
+.botaoentrar button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 50%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.45),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left 0.6s ease;
+}
+
+.botaoentrar button:hover::before {
+    left: 150%;
+}
+
+/* botão sobe */
+
+.botaoentrar button:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 0 #033803,
+        0 14px 20px rgba(0, 80, 0, 0.45);
+}
+
+/* botão afunda */
+
+.botaoentrar button:active {
+    transform: translateY(4px);
+
+    box-shadow:
+        0 1px 0 #033803,
+        0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
 @media (max-width: 768px) {
+
+    body {
+        padding: 20px;
+    }
+
     .card {
         width: 90%;
         min-height: auto;
+
         padding: 25px;
+
+        border-radius: 20px;
     }
 
     .realizarlogin {
         width: 100%;
     }
-}
 
->>>>>>> 76be9a0 (blabla)
+    .labelg > input {
+        width: 90%;
+    }
+
+    img {
+        width: 90px;
+        height: 90px;
+    }
+}
+html,
+body {
+    overflow: hidden;
+    height: 100%;
+}

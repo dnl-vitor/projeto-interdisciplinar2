@@ -1,134 +1,955 @@
-/* Reset Básico */
+/* =========================================================
+   GIE — TEMA GLASSMORPHISM / VERDE NATURAL
+   ========================================================= */
+
+
+/* =========================================================
+   VARIÁVEIS
+   ========================================================= */
+
+:root {
+    --green-dark: #071507;
+    --green-deep: #0b210b;
+    --green: #087d0c;
+    --green-medium: #159b18;
+    --green-light: #5fbd55;
+
+    --glass: rgba(30, 45, 30, 0.42);
+    --glass-dark: rgba(8, 20, 8, 0.62);
+    --glass-light: rgba(255, 255, 255, 0.08);
+
+    --border: rgba(255, 255, 255, 0.15);
+    --border-green: rgba(70, 170, 65, 0.28);
+
+    --text: #f0f5ef;
+    --text-soft: rgba(240, 245, 239, 0.78);
+    --text-muted: rgba(240, 245, 239, 0.58);
+
+    --shadow:
+        0 10px 35px rgba(0, 0, 0, 0.38);
+
+    --radius: 16px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    font-family:
+        'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+}
+
+html {
+    min-height: 100%;
 }
 
 body {
-    display: flex;
     min-height: 100vh;
-    background-color: #f4f7f6;
-    color: #333;
+
+    display: flex;
+
+    color: var(--text);
+
+    overflow-x: hidden;
+
+    /*
+        Fundo de folhas da referência.
+        Coloque "fundo.jpg" junto ao CSS.
+    */
+    background:
+        linear-gradient(
+            rgba(3, 12, 3, 0.62),
+            rgba(4, 16, 5, 0.68)
+        ),
+        url("fundo.jpg")
+        center center /
+        cover
+        fixed
+        no-repeat;
 }
 
-/* Sidebar (Menu Lateral) */
+
+/* =========================================================
+   CAMADA DE ESCURECIMENTO
+   ========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(70, 130, 55, 0.08),
+            transparent 45%
+        );
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(40, 115, 40, 0.65);
+
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(60, 145, 55, 0.8);
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
 .sidebar {
     width: 250px;
-    background-color: #2c3e50;
-    color: #ecf0f1;
+
+    min-height: 100vh;
+
+    flex-shrink: 0;
+
     display: flex;
     flex-direction: column;
+
+    color: var(--text);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25, 45, 24, 0.55),
+            rgba(5, 17, 6, 0.68)
+        );
+
+    border-right:
+        1px solid var(--border);
+
+    border-radius:
+        0 18px 18px 0;
+
+    box-shadow:
+        8px 0 30px rgba(0, 0, 0, 0.28);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    position: relative;
+
+    z-index: 10;
 }
 
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
 .sidebar .logo {
-    padding: 20px;
+    padding: 26px 20px;
+
     text-align: center;
-    background-color: #1a252f;
-    border-bottom: 2px solid #27ae60;
+
+    background:
+        rgba(0, 0, 0, 0.18);
+
+    border-bottom:
+        1px solid var(--border);
+
+    color: #eef7ec;
+
+    font-size: 1.25rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+
+/* Pequeno detalhe verde */
+.sidebar .logo::after {
+    content: "";
+
+    display: block;
+
+    width: 45px;
+    height: 2px;
+
+    margin:
+        12px auto 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #328c32,
+            transparent
+        );
+
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+.sidebar .menu {
+    padding-top: 10px;
 }
 
 .sidebar .menu ul {
     list-style: none;
-    margin-top: 20px;
+
+    margin: 10px 12px 0;
+
+    padding: 0;
 }
 
+.sidebar .menu ul li {
+    margin-bottom: 5px;
+}
+
+
+/* Links */
 .sidebar .menu ul li a {
     display: block;
-    padding: 15px 20px;
-    color: #bdc3c7;
+
+    padding: 14px 17px;
+
+    color:
+        rgba(235, 243, 233, 0.65);
+
     text-decoration: none;
-    transition: background 0.3s, color 0.3s;
+
+    border:
+        1px solid transparent;
+
+    border-radius: 10px;
+
+    background:
+        transparent;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-.sidebar .menu ul li a:hover, .sidebar .menu ul li a.active {
-    background-color: #27ae60;
-    color: #fff;
+
+/* Hover */
+.sidebar .menu ul li a:hover {
+    color: #f1f8ef;
+
+    background:
+        rgba(30, 90, 30, 0.38);
+
+    border-color:
+        rgba(90, 170, 80, 0.18);
+
+    transform:
+        translateX(3px);
 }
 
-/* Conteúdo Principal */
+
+/* Ativo */
+.sidebar .menu ul li a.active {
+    color: #f4fff2;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20, 115, 24, 0.68),
+            rgba(20, 90, 22, 0.42)
+        );
+
+    border-color:
+        rgba(90, 180, 80, 0.28);
+
+    box-shadow:
+        0 5px 15px rgba(0, 50, 0, 0.28),
+        inset 0 1px 1px
+        rgba(255, 255, 255, 0.09);
+
+    transform:
+        translateX(2px);
+}
+
+
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================= */
+
 .main-content {
     flex: 1;
+
+    min-width: 0;
+
     display: flex;
+
     flex-direction: column;
+
+    position: relative;
 }
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .top-header {
-    background-color: #fff;
-    padding: 20px 30px;
+    margin:
+        20px 25px 0;
+
+    padding:
+        18px 25px;
+
+    min-height: 70px;
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(45, 60, 43, 0.46),
+            rgba(18, 32, 18, 0.42)
+        );
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        var(--shadow),
+        inset 0 1px 1px
+        rgba(255, 255, 255, 0.06);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
 }
 
+
+/* Título */
 .top-header h1 {
+    color: #f2f6f0;
+
     font-size: 1.5rem;
-    color: #2c3e50;
+
+    font-weight: 600;
+
+    letter-spacing: 0.2px;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Grid do Dashboard */
+
+/* =========================================================
+   GRID DO DASHBOARD
+   ========================================================= */
+
 .dashboard-grid {
-    padding: 30px;
+    width: 100%;
+
+    padding:
+        25px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(300px, 1fr)
+        );
+
+    gap: 22px;
 }
 
-/* Cards */
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
 .card {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    position: relative;
+
+    min-height: 180px;
+
+    padding: 22px;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: space-between;
-    border-top: 4px solid #27ae60;
+
+    overflow: hidden;
+
+    border-radius:
+        var(--radius);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(55, 70, 53, 0.44),
+            rgba(17, 30, 17, 0.48)
+        );
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        var(--shadow),
+        inset 0 1px 1px
+        rgba(255, 255, 255, 0.06);
+
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
+
+
+/* Linha verde superior */
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+    right: 10%;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(70, 160, 65, 0.55),
+            transparent
+        );
+
+    opacity: 0.7;
+}
+
+
+/* Brilho interno */
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    top: -90px;
+    right: -60px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(100, 160, 90, 0.06);
+
+    filter: blur(15px);
+
+    pointer-events: none;
+}
+
+
+/* Hover */
+.card:hover {
+    transform:
+        translateY(-4px);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(60, 78, 57, 0.50),
+            rgba(20, 36, 20, 0.52)
+        );
+
+    border-color:
+        rgba(90, 160, 80, 0.22);
+
+    box-shadow:
+        0 14px 38px rgba(0, 0, 0, 0.42),
+        inset 0 1px 1px
+        rgba(255, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   TÍTULO DOS CARDS
+   ========================================================= */
 
 .card h3 {
     margin-bottom: 15px;
-    color: #27ae60;
+
+    color:
+        #68b960;
+
     font-size: 1.2rem;
+
+    font-weight: 600;
+
+    text-shadow:
+        0 2px 8px
+        rgba(40, 130, 40, 0.18);
 }
 
-.card p, .card ul {
+
+/* =========================================================
+   TEXTOS
+   ========================================================= */
+
+.card p,
+.card ul {
     margin-bottom: 10px;
+
     font-size: 0.95rem;
+
+    line-height: 1.55;
+
+    color:
+        var(--text-soft);
 }
+
 
 .card ul {
-    list-style: inside;
-    color: #555;
+    padding-left: 5px;
+
+    list-style:
+        inside;
+
+    color:
+        var(--text-muted);
+
     margin-bottom: 20px;
 }
 
-/* Botões */
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
 .btn {
-    background-color: #27ae60;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
     margin-top: auto;
+
+    padding:
+        11px 18px;
+
+    border:
+        1px solid
+        rgba(90, 190, 75, 0.32);
+
+    border-radius:
+        20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #159b18 0%,
+            #087d0c 100%
+        );
+
+    color:
+        #eaffea;
+
+    cursor: pointer;
+
+    font-size: 0.9rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.1px;
+
+    box-shadow:
+        0 4px 10px
+        rgba(0, 0, 0, 0.35),
+
+        0 0 8px
+        rgba(20, 150, 20, 0.12),
+
+        inset 0 1px 1px
+        rgba(255, 255, 255, 0.18);
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease,
+        border-color 0.25s ease;
 }
 
+
+/* Hover */
 .btn:hover {
-    background-color: #219150;
+    background:
+        linear-gradient(
+            180deg,
+            #1aae1c 0%,
+            #0b8c10 100%
+        );
+
+    border-color:
+        rgba(100, 210, 90, 0.42);
+
+    box-shadow:
+        0 6px 14px
+        rgba(0, 0, 0, 0.4),
+
+        0 0 12px
+        rgba(20, 170, 30, 0.22),
+
+        inset 0 1px 2px
+        rgba(255, 255, 255, 0.2);
+
+    transform:
+        translateY(-1px);
 }
 
-/* Destaques de Status */
-.highlight-green {
-    color: #27ae60;
-    font-weight: bold;
+
+/* Clique */
+.btn:active {
+    transform:
+        translateY(1px);
+
+    background:
+        linear-gradient(
+            180deg,
+            #087d0c,
+            #056708
+        );
+
+    box-shadow:
+        0 2px 6px
+        rgba(0, 0, 0, 0.4);
 }
+
+
+/* =========================================================
+   DESTAQUES
+   ========================================================= */
+
+.highlight-green {
+    color:
+        #68bd5f;
+
+    font-weight:
+        600;
+
+    text-shadow:
+        0 0 8px
+        rgba(70, 170, 60, 0.18);
+}
+
 
 .highlight-orange {
-    color: #e67e22;
-    font-weight: bold;
+    color:
+        #d99a50;
+
+    font-weight:
+        600;
+
+    text-shadow:
+        0 0 8px
+        rgba(200, 130, 50, 0.15);
+}
+
+
+/* =========================================================
+   CAMPOS / INPUTS
+   Caso existam inputs no dashboard
+   ========================================================= */
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    padding:
+        11px 15px;
+
+    color:
+        #edf5eb;
+
+    background:
+        rgba(20, 30, 20, 0.48);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+
+    border-radius:
+        20px;
+
+    outline: none;
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+input::placeholder,
+textarea::placeholder {
+    color:
+        rgba(235, 245, 233, 0.42);
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    background:
+        rgba(25, 40, 25, 0.58);
+
+    border-color:
+        rgba(70, 160, 65, 0.5);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(40, 130, 40, 0.10);
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(250px, 1fr)
+            );
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — CELULAR
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        flex-direction: column;
+    }
+
+
+    /* Sidebar vira menu superior */
+    .sidebar {
+        width: 100%;
+
+        min-height: auto;
+
+        border-right: none;
+
+        border-bottom:
+            1px solid var(--border);
+
+        border-radius:
+            0 0 18px 18px;
+    }
+
+
+    .sidebar .logo {
+        padding:
+            18px;
+    }
+
+
+    .sidebar .logo::after {
+        margin-top:
+            8px;
+    }
+
+
+    .sidebar .menu {
+        padding:
+            0 8px 10px;
+    }
+
+
+    .sidebar .menu ul {
+        margin:
+            5px 0 0;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 5px;
+    }
+
+
+    .sidebar .menu ul li {
+        flex:
+            1 1 120px;
+
+        margin:
+            0;
+    }
+
+
+    .sidebar .menu ul li a {
+        padding:
+            11px;
+
+        text-align:
+            center;
+    }
+
+
+    /* Header */
+    .top-header {
+        margin:
+            15px 15px 0;
+
+        padding:
+            16px 18px;
+    }
+
+
+    .top-header h1 {
+        font-size:
+            1.25rem;
+    }
+
+
+    /* Cards */
+    .dashboard-grid {
+        padding:
+            15px;
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            15px;
+    }
+
+
+    .card {
+        min-height:
+            160px;
+
+        padding:
+            19px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .top-header {
+        margin:
+            10px 10px 0;
+    }
+
+
+    .dashboard-grid {
+        padding:
+            10px;
+    }
+
+
+    .card {
+        padding:
+            17px;
+    }
+
+
+    .card h3 {
+        font-size:
+            1.1rem;
+    }
+
+
+    .card p,
+    .card ul {
+        font-size:
+            0.9rem;
+    }
+
+
+    .btn {
+        width:
+            100%;
+
+        text-align:
+            center;
+    }
+}
+html,
+body {
+    overflow: hidden;
+    height: 100%;
 }
