@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Reaproveita o mesmo CSS do login para manter o visual igual -->
+    <link rel="stylesheet" href="../src/style/cardlogin.css">
+    <link rel="shortcut icon" href="../src/imagens/logo2.png" type="image/x-icon">
+
+    <title>cadastro</title>
+</head>
+<body>
+    <section id="cadastro-section">
+        <div class="card">
+            <div class="inf">
+                <img class="imgsocial" src="../src/imagens/usuario-img.jpg" alt="usuario">
+                <h1>Criar conta no GIE</h1>
+            </div>
+
+            <!-- action aponta para o PHP que grava no MySQL -->
+            <form id="form-cadastro" action="cadastro.php" method="POST">
+                <div class="labelg">
+                    <label></label>
+                    <input type="email" id="email" name="email" placeholder="email" maxlength="50" required>
+                </div>
+
+                <div class="labelg">
+                    <label></label>
+                    <input type="password" id="senha" name="senha" placeholder="senha" minlength="6" required>
+                </div>
+
+                <div class="labelg">
+                    <label></label>
+                    <input type="password" id="confirmar-senha" name="confirmar_senha" placeholder="confirmar senha" minlength="6" required>
+                </div>
+
+                <p id="mensagem" style="color:#c0392b; font-size:14px; min-height:18px;"></p>
+
+                <div class="botaoentrar">
+                    <button type="submit">cadastrar</button>
+                </div>
+
+                <div style="text-align: center;">
+                    <a href="index_cardlogin.html">já tenho conta</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Validação no navegador: senhas iguais antes de enviar
+        const form = document.getElementById('form-cadastro');
+        const msg = document.getElementById('mensagem');
+
+        form.addEventListener('submit', function (e) {
+            const senha = document.getElementById('senha').value;
+            const confirmar = document.getElementById('confirmar-senha').value;
+
+            if (senha !== confirmar) {
+                e.preventDefault();
+                msg.textContent = 'As senhas não coincidem.';
+                return;
+            }
+            msg.textContent = '';
+        });
+
+        // Mostra erro vindo do PHP (ex.: cadastro.html?erro=existe)
+        const erro = new URLSearchParams(window.location.search).get('erro');
+        if (erro === 'existe') msg.textContent = 'Esse email já está cadastrado.';
+        if (erro === 'falha') msg.textContent = 'Não foi possível cadastrar. Tente novamente.';
+    </script>
+</body>
+</html>
