@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIE - Relatórios</title>
+    <link rel="stylesheet" href="../src/style/style_dashboard.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo"><h2>GIE</h2></div>
+        <nav class="menu">
+            <ul>
+               <li><a href="index_dashboard.php">Dashboard</a></li>
+                <li><a href="index_areas.html" class="active">Áreas e Jardins</a></li>
+                <li><a href="index_culturas.html">Culturas (Plantas)</a></li>
+                <li><a href="index_irrigacao.html">Irrigação & Sensores</a></li>
+                <li><a href="index_estoque.html">Estoque de Insumos</a></li>
+                <li><a href="index_relatorios.html">Relatórios</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <h1>Relatórios de Desempenho</h1>
+            <div class="user-info"><span>Bem-vindo, Administrador</span></div>
+        </header>
+
+        <section class="dashboard-grid">
+            <article class="card" style="grid-column: 1 / -1;">
+                <h3>Relatórios de Desempenho</h3>
+                <p>Gere relatórios de consumo hídrico, crescimento das plantas e alertas do sistema nos últimos 30 dias.</p>
+                <button class="btn" style="width: max-content; margin-top: 15px;">Exportar PDF</button>
+            </article>
+        </section>
+    </main>
+
+    <script src="index_dashboard.js"></script>
+</body>
+</html>

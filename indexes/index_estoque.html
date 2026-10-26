@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIE - Estoque</title>
+    <link rel="stylesheet" href="../src/style/style_dashboard.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo"><h2>GIE</h2></div>
+        <nav class="menu">
+            <ul>
+               <li><a href="index_dashboard.php">Dashboard</a></li>
+                <li><a href="index_areas.html" class="active">Áreas e Jardins</a></li>
+                <li><a href="index_culturas.html">Culturas (Plantas)</a></li>
+                <li><a href="index_irrigacao.html">Irrigação & Sensores</a></li>
+                <li><a href="index_estoque.html">Estoque de Insumos</a></li>
+                <li><a href="index_relatorios.html">Relatórios</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <h1>Estoque de Insumos</h1>
+            <div class="user-info"><span>Bem-vindo, Administrador</span></div>
+        </header>
+
+        <section class="dashboard-grid">
+            <article class="card">
+                <h3>Insumos Disponíveis</h3>
+                <ul>
+                    <li>Fertilizante: <strong id="fertilizante" class="highlight-green">--</strong></li>
+                    <li>Substrato: <strong id="substrato" class="highlight-green">--</strong></li>
+                    <li>Sementes de Tomate: <strong id="sementes-tomate" class="highlight-green">--</strong></li>
+                </ul>
+                <button class="btn" style="margin-top: 15px;">Atualizar Estoque</button>
+            </article>
+        </section>
+    </main>
+
+    <script src="index_dashboard.js"></script>
+</body>
+</html>

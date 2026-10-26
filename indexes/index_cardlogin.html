@@ -18,7 +18,7 @@
             </div>
 
             <!-- Corrigido: Removido o formulário duplicado que envolvia o card -->
-            <form id="meu-formulario"> 
+            <form id="meu-formulario" action="login.php" method="POST"> 
                 <div class="labelg"> 
                     <label></label>
                     <!-- Corrigido: Adicionado id="email" para o JS conseguir encontrar o campo -->
@@ -42,9 +42,14 @@
             </form>
 
             <!-- Area do script -->
-            <script src="card.js"></script> <!-- validaçao de usuario-->
             <script src="login-background-img.js"></script> <!-- muda as imagens de fundo sempre que recarregado-->
         </div>
-    </section> 
+    </section>
+    <script>
+        // Mostra o erro enviado pelo login.php (index_cardlogin.html?erro=1)
+        if (new URLSearchParams(window.location.search).get('erro') === '1') {
+            document.getElementById('mensagem').textContent = 'Email ou senha incorretos.';
+        }
+    </script>
 </body>
 </html>
