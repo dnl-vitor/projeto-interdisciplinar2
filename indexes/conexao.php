@@ -2,11 +2,11 @@
 // Este arquivo só cria a conexão ($pdo). Não imprime nada,
 // para poder ser incluído por outros scripts (login, cadastro etc.).
 
-$host     = getenv('DB_HOST') ?: '';
-$db_name  = getenv('DB_NAME') ?: '';
-$username = getenv('DB_USER') ?: '';
-$password = getenv('DB_PASS') ?: '';
-$port     = getenv('DB_PORT') ?: ;
+$host     = getenv('DB_HOST') ?: 'REMOVIDO';
+$db_name  = getenv('DB_NAME') ?: 'GIE_DATA';
+$username = getenv('DB_USER') ?: 'REMOVIDO';
+$password = getenv('DB_PASS') ?: 'REMOVIDO';
+$port     = getenv('DB_PORT') ?: REMOVIDO;
 
 try {
     $pdo = new PDO(
