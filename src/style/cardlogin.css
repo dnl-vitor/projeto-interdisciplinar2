@@ -46,8 +46,8 @@ body::before {
     position: relative;
     z-index: 1;
 
-    width: 40vw;
-    min-height: 70vh;
+    width: 25vw;
+    min-height: fit-content;
 
     padding: 30px;
 
@@ -247,7 +247,8 @@ h1:hover {
 ========================= */
 
 .labelg > input {
-    width: 31vw;
+    width: 280px;
+    max-width: 100%;
     height: 40px;
 
     margin: 0 auto 15px auto;
@@ -262,7 +263,7 @@ h1:hover {
 
     outline: none;
 
-    text-align: center;
+    text-align: left;
 
     font-style: italic;
 
@@ -315,12 +316,14 @@ h1:hover {
 .botaoentrar button {
     position: relative;
 
-    width: 32vw;
+    width: fit-content;
     height: 40px;
 
     margin: 0 auto 15px auto;
 
     display: block;
+
+    padding: 0 32px;
 
     border: none;
     border-radius: 20px;
@@ -421,7 +424,8 @@ h1:hover {
     }
 
     .labelg > input {
-        width: 90%;
+        width: 280px;
+        max-width: 100%;
     }
 
     img {
