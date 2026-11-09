@@ -20,8 +20,7 @@ if (!isset($_SESSION['id_usuario'])) {
         <nav class="menu">
             <ul>
                 <li><a href="index_dashboard.php" class="active">Dashboard</a></li>
-                <li><a href="index_areas.html">Áreas e Jardins</a></li>
-                <li><a href="index_culturas.html">Culturas (Plantas)</a></li>
+                <li><a href="index_areas.html">Áreas e Culturas</a></li>
                 <li><a href="index_irrigacao.html">Irrigação & Sensores</a></li>
                 <li><a href="index_estoque.html">Estoque de Insumos</a></li>
                 <li><a href="index_relatorios.html">Relatórios</a></li>

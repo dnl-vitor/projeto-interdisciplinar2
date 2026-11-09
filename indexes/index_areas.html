@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIE - Áreas e Jardins</title>
+    <title>GIE - Áreas e Culturas</title>
     <link rel="stylesheet" href="../src/style/style_dashboard.css">
 </head>
 <body>
@@ -12,30 +12,149 @@
         <nav class="menu">
             <ul>
                 <li><a href="index_dashboard.php">Dashboard</a></li>
-                <li><a href="index_areas.html" class="active">Áreas e Jardins</a></li>
-                <li><a href="index_culturas.html">Culturas (Plantas)</a></li>
+                <li><a href="index_areas.html" class="active">Áreas e Culturas</a></li>
                 <li><a href="index_irrigacao.html">Irrigação & Sensores</a></li>
                 <li><a href="index_estoque.html">Estoque de Insumos</a></li>
-                <li><a href="index_relatorios.html">Relatórios</a></li>            
+                <li><a href="index_relatorios.html">Relatórios</a></li>
             </ul>
         </nav>
     </aside>
 
     <main class="main-content">
         <header class="top-header">
-            <h1>Gerenciamento de Áreas e Jardins</h1>
+            <h1>Áreas e Culturas</h1>
             <div class="user-info"><span>Bem-vindo, Administrador</span></div>
         </header>
 
         <section class="dashboard-grid">
-            <article class="card" style="grid-column: 1 / -1;">
-                <h3>Gerenciamento de Áreas e Jardins</h3>
-                <p>Aqui você pode visualizar o mapa da estufa, adicionar novas áreas de plantio e configurar os canteiros.</p>
-                <button class="btn" style="width: max-content; margin-top: 15px;">Nova Área</button>
+
+            <!-- Área selecionada + leituras dos sensores -->
+            <article class="card span-full">
+                <div class="card-head">
+                    <h3 id="titulo-area">Área: Canteiro A</h3>
+                    <div class="area-select">
+                        <select id="select-area" name="area"></select>
+                    </div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat" id="stat-umidade">
+                        <div class="stat-label">Umidade do solo</div>
+                        <div class="stat-value" data-role="valor">--</div>
+                        <div class="stat-ideal" data-role="ideal">Ideal: --</div>
+                        <span class="badge badge-muted" data-role="status">Sem leitura</span>
+                    </div>
+                    <div class="stat" id="stat-ph">
+                        <div class="stat-label">pH do solo</div>
+                        <div class="stat-value" data-role="valor">--</div>
+                        <div class="stat-ideal" data-role="ideal">Ideal: --</div>
+                        <span class="badge badge-muted" data-role="status">Sem leitura</span>
+                    </div>
+                    <div class="stat" id="stat-plantas">
+                        <div class="stat-label">Plantas cultivadas</div>
+                        <div class="stat-value" data-role="valor">0</div>
+                        <div class="stat-ideal">Nesta área</div>
+                    </div>
+                </div>
             </article>
+
+            <!-- Lista de plantas -->
+            <article class="card span-full">
+                <div class="card-head">
+                    <h3 id="titulo-plantas">Plantas (0)</h3>
+                </div>
+                <div class="plant-grid" id="lista-plantas"></div>
+            </article>
+
+            <!-- Operação: adicionar planta -->
+            <article class="card">
+                <h3>Adicionar planta</h3>
+                <form class="form" id="form-planta">
+                    <div class="field">
+                        <label for="planta-nome">Nome da planta</label>
+                        <input type="text" id="planta-nome" name="nome" placeholder="Ex.: Tomate" required>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="planta-agua">Água</label>
+                            <select id="planta-agua" name="agua">
+                                <option value="baixa">Baixa</option>
+                                <option value="media" selected>Média</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="planta-luz">Luz</label>
+                            <select id="planta-luz" name="luz">
+                                <option value="sol_pleno" selected>Sol pleno</option>
+                                <option value="meia_sombra">Meia-sombra</option>
+                                <option value="sombra">Sombra</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="planta-ph-min">pH mínimo</label>
+                            <input type="number" id="planta-ph-min" name="ph_min" step="0.1" min="0" max="14" placeholder="6.0" required>
+                        </div>
+                        <div class="field">
+                            <label for="planta-ph-max">pH máximo</label>
+                            <input type="number" id="planta-ph-max" name="ph_max" step="0.1" min="0" max="14" placeholder="7.0" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="planta-nutricao">Nutrição</label>
+                        <select id="planta-nutricao" name="nutricao">
+                            <option value="baixa">Baixa</option>
+                            <option value="media" selected>Média</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Salvar planta</button>
+                        <button type="reset" class="btn btn-ghost">Limpar</button>
+                    </div>
+                </form>
+            </article>
+
+            <!-- Operação: nova área -->
+            <article class="card">
+                <h3>Nova área</h3>
+                <form class="form" id="form-area">
+                    <div class="field">
+                        <label for="area-nome">Nome da área</label>
+                        <input type="text" id="area-nome" name="nome" placeholder="Ex.: Canteiro B" required>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="area-umi-min">Umidade ideal mín. (%)</label>
+                            <input type="number" id="area-umi-min" name="umidade_min" min="0" max="100" placeholder="30" required>
+                        </div>
+                        <div class="field">
+                            <label for="area-umi-max">Umidade ideal máx. (%)</label>
+                            <input type="number" id="area-umi-max" name="umidade_max" min="0" max="100" placeholder="70" required>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="area-ph-min">pH ideal mín.</label>
+                            <input type="number" id="area-ph-min" name="ph_min" step="0.1" min="0" max="14" placeholder="6.0" required>
+                        </div>
+                        <div class="field">
+                            <label for="area-ph-max">pH ideal máx.</label>
+                            <input type="number" id="area-ph-max" name="ph_max" step="0.1" min="0" max="14" placeholder="7.0" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Criar área</button>
+                        <button type="reset" class="btn btn-ghost">Limpar</button>
+                    </div>
+                </form>
+            </article>
+
         </section>
     </main>
 
-    <script src="index_dashboard.js"></script>
+    <script src="index_areas.js"></script>
 </body>
 </html>
