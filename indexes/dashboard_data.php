@@ -19,6 +19,9 @@
 //      "qtd_plantada": 12, "data_plantio": "2026-11-07" }
 //    Opcional: data_plantio (padrão: hoje).
 //
+// 4) Encerrar um plantio (marca como colhido e guarda a data; o histórico fica)
+//    { "acao": "encerrar_plantio", "id_plantio": 7 }
+//
 // Sucesso: { "status": "sucesso", "mensagem": "...", "id": 5 }
 // Erro:    { "status": "erro", "mensagem": "..." }
 
@@ -202,6 +205,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         error_log('Erro no GET dashboard_data.php: ' . $e->getMessage());
         responder(500, 'erro', 'Erro ao consultar o banco de dados.');
     }
+    responder(201, 'sucesso', 'Planta cadastrada com sucesso.', ['id' => (int) $pdo->lastInsertId()]);
+}
+
+function registrarPlantio(PDO $pdo, array $d): void
+{
+    $idArea      = validarInteiro($d['id_area'] ?? null, 'área', 1, ID_MAX);
+    $idPlanta    = validarInteiro($d['id_planta'] ?? null, 'planta', 1, ID_MAX);
+    $qtdPlantada = validarInteiro($d['qtd_plantada'] ?? null, 'quantidade plantada', 1, 1000000);
+
+    $v = opcional($d, 'data_plantio');
+    $dataPlantio = $v === null ? date('Y-m-d') : validarData($v, 'data do plantio');
+
+    if (!existeRegistro($pdo, 'areas', 'id_area', $idArea)) {
+        responder(404, 'erro', 'Área não encontrada.');
+    }
+    if (!existeRegistro($pdo, 'plantas', 'id_planta', $idPlanta)) {
+        responder(404, 'erro', 'Planta não encontrada no catálogo.');
+    }
+
+    $stmt = $pdo->prepare(
+        'INSERT INTO plantios (id_area, id_planta, qtd_plantada, data_plantio)
+         VALUES (:id_area, :id_planta, :qtd, :data)'
+    );
+    $stmt->execute([
+        ':id_area'   => $idArea,
+        ':id_planta' => $idPlanta,
+        ':qtd'       => $qtdPlantada,
+        ':data'      => $dataPlantio,
+    ]);
+
+    responder(201, 'sucesso', 'Plantio registrado com sucesso.', ['id' => (int) $pdo->lastInsertId()]);
+}
+
+function encerrarPlantio(PDO $pdo, array $d): void
+{
+    $idPlantio = validarInteiro($d['id_plantio'] ?? null, 'plantio', 1, ID_MAX);
+
+    // GREATEST evita data de colheita anterior à data do plantio (violaria o CHECK).
+    $stmt = $pdo->prepare(
+        "UPDATE plantios
+            SET status = 'colhido', data_colheita = GREATEST(CURDATE(), data_plantio)
+          WHERE id_plantio = :id AND status = 'ativo'"
+    );
+    $stmt->execute([':id' => $idPlantio]);
+
+    if ($stmt->rowCount() === 0) {
+        responder(404, 'erro', 'Plantio ativo não encontrado.');
+    }
+
+    responder(200, 'sucesso', 'Plantio encerrado.', ['id' => $idPlantio]);
+}
+
+// ---------- Entrada ----------
+
+if (!isset($_SESSION['id_usuario'])) {
+    responder(401, 'erro', 'Sessão expirada. Faça login novamente.');
 }
 
 // ============================================================================
@@ -280,6 +339,21 @@ try {
 
         $pdo->commit();
         responder(201, 'sucesso', 'Área criada com sucesso!', ['id_area' => $idArea]);
+    switch ($dados['acao'] ?? '') {
+        case 'area':
+            registrarArea($pdo, $dados);
+            break;
+        case 'planta':
+            registrarPlanta($pdo, $dados);
+            break;
+        case 'plantio':
+            registrarPlantio($pdo, $dados);
+            break;
+        case 'encerrar_plantio':
+            encerrarPlantio($pdo, $dados);
+            break;
+        default:
+            responder(400, 'erro', 'Ação desconhecida. Use "area", "planta", "plantio" ou "encerrar_plantio".');
     }
 
     // ------------------------------------------------------------------------
