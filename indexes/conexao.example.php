@@ -1,11 +1,16 @@
 <?php
-// Este arquivo só cria a conexão ($pdo). Não imprime nada,
-// para poder ser incluído por outros scripts (login, cadastro etc.).
+/**
+ * Arquivo: indexes/conexao.example.php
+ * Objetivo: Modelo de conexão com o banco de dados GIE_DATA.
+ * Instrução: Copie este arquivo para "indexes/conexao.php" e ajuste
+ *            o usuário e a senha caso o seu MySQL não use o padrão do XAMPP.
+ */
 
-$host     = getenv('DB_HOST') ?: 'localhost';
+$host     = getenv('DB_HOST') ?: '127.0.0.1';
+$port     = getenv('DB_PORT') ?: '3306';
 $db_name  = getenv('DB_NAME') ?: 'GIE_DATA';
-$username = getenv('DB_USER') ?: 'SEU_USUARIO';
-$password = getenv('DB_PASS') ?: 'SUA_SENHA';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASS') !== false ? getenv('DB_PASS') : '';
 
 try {
     $pdo = new PDO(
@@ -19,8 +24,12 @@ try {
         ]
     );
 } catch (PDOException $e) {
-    // Detalhes só no log do servidor, nunca na tela do usuário
     error_log('Falha na conexão com o banco: ' . $e->getMessage());
     http_response_code(500);
-    exit('Erro ao conectar ao banco de dados.');
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode([
+        'status'   => 'erro',
+        'mensagem' => 'Erro ao conectar ao banco de dados. Verifique o arquivo indexes/conexao.php.'
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
 }

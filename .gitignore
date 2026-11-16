@@ -1,3 +1,18 @@
+# Ignora o arquivo de conexão local com senhas pessoais (o repositório usa o conexao.example.php)
+indexes/conexao.php
+
+# Ignora o script de teste rápido para não poluir a entrega final
+indexes/teste_conexao.php
+indexes/conexao.php
+indexes/instalar_banco.php
+indexes/teste_conexao.php
+
+# Ignora pastas de dependências e configurações de editores
+node_modules/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
 # ignorando arquivos
 *.txt
 *.docx
