@@ -12,14 +12,14 @@ if (!isset($_SESSION['id_usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIE - Visão Geral</title>
-    <link rel="stylesheet" href="../src/style/style_dashboard.css">
+    <link rel="stylesheet" href="../src/style/dashboard.css">
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="logo"><h2>GIE</h2></div>
-        <nav class="menu">
+    <aside class="lateral">
+        <h2 class="logo">GIE</h2>
+        <nav>
             <ul>
-                <li><a href="index_dashboard.php" class="active">Dashboard</a></li>
+                <li><a href="index_dashboard.php" class="ativo" aria-current="page">Dashboard</a></li>
                 <li><a href="index_areas.html">Áreas e Culturas</a></li>
                 <li><a href="index_irrigacao.html">Irrigação & Sensores</a></li>
                 <li><a href="index_estoque.html">Estoque de Insumos</a></li>
@@ -28,46 +28,88 @@ if (!isset($_SESSION['id_usuario'])) {
         </nav>
     </aside>
 
-    <main class="main-content">
-        <header class="top-header">
-            <h1>Visão Geral da Estufa</h1>
-            <div class="user-info" style="display:flex; align-items:center; gap:12px;">
+    <main>
+        <header class="topo">
+            <h1>Visão geral da estufa</h1>
+            <div class="usuario">
                 <span>Bem-vindo, Administrador</span>
-                <form action="logout.php" method="POST" style="margin:0;">
-                    <button type="submit" class="btn" style="width:auto; padding:6px 16px;">Sair</button>
+                <form action="logout.php" method="POST">
+                    <button type="submit" class="btn btn-contorno">Sair</button>
                 </form>
             </div>
         </header>
 
-        <section class="dashboard-grid">
-            <!-- Card: Plantas e Jardins -->
-            <article class="card">
-                <h3>Plantio e Áreas</h3>
-                <p>Status: <strong id="areas-ativas">-- Áreas Ativas</strong></p>
-                <ul id="lista-areas"><li>A carregar...</li></ul>
-                <button class="btn">Gerenciar Plantas</button>
-            </article>
+        <div class="barra">
+            <p id="atualizado-em">Carregando dados…</p>
+            <div class="barra-acoes">
+                <a href="index_irrigacao.html">Registrar leitura manual</a>
+                <button type="button" class="btn btn-contorno" id="btn-atualizar">Atualizar</button>
+            </div>
+        </div>
+        <p id="aviso" class="aviso" role="alert" hidden></p>
 
-            <!-- Card: Monitoramento Ambiental (Sensores) -->
-            <article class="card">
-                <h3>Sensores Atuais</h3>
-                <div class="sensor-data">
-                    <p>Temperatura: <span id="temperatura" class="highlight-green">-- °C</span></p>
-                    <p>Umidade do Ar: <span id="umidade-ar" class="highlight-green">-- %</span></p>
-                    <p>Umidade do Solo: <span id="umidade-solo" class="highlight-orange">-- %</span></p>
-                </div>
-                <button class="btn">Ver Histórico</button>
-            </article>
-
-            <!-- Card: Automação Hídrica -->
-            <article class="card">
-                <h3>Sistema de Irrigação</h3>
-                <p>Status da Bomba: <span id="status-bomba" class="highlight-green">--</span></p>
-                <p>Nível da Caixa D'água: <strong id="nivel-agua">-- %</strong></p>
-                <p id="proxima-irrigacao">Próxima Irrigação: --</p>
-                <button class="btn" id="btn-irrigacao">Controle Manual</button>
-            </article>
+        <section class="indicadores" aria-label="Indicadores principais">
+            <div>
+                <span class="rotulo">Áreas ativas</span>
+                <strong id="areas-ativas" data-numero>--</strong>
+            </div>
+            <div>
+                <span class="rotulo">Temperatura</span>
+                <strong id="temperatura">-- °C</strong>
+            </div>
+            <div>
+                <span class="rotulo">Umidade do solo (média)</span>
+                <strong id="umidade-solo">-- %</strong>
+            </div>
+            <div>
+                <span class="rotulo">Umidade do ar</span>
+                <strong id="umidade-ar">-- %</strong>
+            </div>
         </section>
+
+        <div class="colunas">
+            <section class="painel">
+                <div class="painel-topo">
+                    <h3>Áreas</h3>
+                    <a href="index_areas.html">Gerenciar plantas</a>
+                </div>
+                <div class="tabela-rolagem">
+                    <table>
+                        <thead>
+                            <tr><th>Área</th><th>Umidade</th><th>pH</th><th>Situação</th></tr>
+                        </thead>
+                        <tbody id="lista-areas">
+                            <tr><td colspan="4" class="vazio">Carregando…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="coluna-lateral">
+                <section class="painel">
+                    <h3>Irrigação</h3>
+                    <dl>
+                        <div><dt>Bomba</dt><dd><span id="status-bomba" class="situacao">--</span></dd></div>
+                        <div><dt>Caixa d'água</dt><dd><strong id="nivel-agua">-- %</strong></dd></div>
+                    </dl>
+                    <progress id="barra-agua" max="100" value="0" aria-label="Nível da caixa d'água"></progress>
+                    <p id="proxima-irrigacao" class="nota">Próxima irrigação: --</p>
+                    <button type="button" class="btn" id="btn-irrigacao" data-dinamico>Ligar ou desligar bomba</button>
+                </section>
+
+                <section class="painel">
+                    <div class="painel-topo">
+                        <h3>Estoque de insumos</h3>
+                        <a href="index_estoque.html">Ver estoque</a>
+                    </div>
+                    <dl>
+                        <div><dt>Fertilizante</dt><dd id="fertilizante">--</dd></div>
+                        <div><dt>Substrato</dt><dd id="substrato">--</dd></div>
+                        <div><dt>Sementes de tomate</dt><dd id="sementes-tomate">--</dd></div>
+                    </dl>
+                </section>
+            </div>
+        </div>
     </main>
 
     <script src="index_dashboard.js"></script>

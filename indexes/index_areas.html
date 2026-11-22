@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIE - Áreas e Culturas</title>
-    <link rel="stylesheet" href="../src/style/style_dashboard.css">
+    <link rel="stylesheet" href="../src/style/dashboard.css">
 </head>
 <body>
     <aside class="sidebar">
@@ -34,6 +34,7 @@
                     <h3 id="titulo-area">Carregando...</h3>
                     <div class="area-select">
                         <select id="select-area" name="area" aria-label="Área selecionada"></select>
+                        <button type="button" class="btn btn-ghost btn-sm" id="btn-remover-area">Remover área</button>
                     </div>
                 </div>
 
@@ -86,6 +87,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn">Registrar plantio</button>
+                        <button type="button" class="btn btn-ghost" id="btn-remover-especie">Excluir espécie</button>
                     </div>
                 </form>
             </article>
@@ -112,7 +114,6 @@
                             <select id="planta-luz" name="luz">
                                 <option value="sol_pleno" selected>Sol pleno</option>
                                 <option value="meia_sombra">Meia-sombra</option>
-                                <option value="sombra">Sombra</option>
                             </select>
                         </div>
                     </div>
