@@ -4,35 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIE - Relatórios</title>
-    <link rel="stylesheet" href="../src/style/style_dashboard.css">
+    <link rel="stylesheet" href="../src/style/dashboard.css">
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="logo"><h2>GIE</h2></div>
-        <nav class="menu">
+    <aside class="lateral">
+        <h2 class="logo">GIE</h2>
+        <nav>
             <ul>
-               <li><a href="index_dashboard.php">Dashboard</a></li>
+                <li><a href="index_dashboard.php">Dashboard</a></li>
                 <li><a href="index_areas.html">Áreas e Culturas</a></li>
-                <li><a href="index_irrigacao.html">Irrigação & Sensores</a></li>
+                <li><a href="index_irrigacao.html">Irrigação &amp; Sensores</a></li>
                 <li><a href="index_estoque.html">Estoque de Insumos</a></li>
-                <li><a href="index_relatorios.html" class="active">Relatórios</a></li>
+                <li><a href="index_relatorios.html" class="ativo" aria-current="page">Relatórios</a></li>
             </ul>
         </nav>
     </aside>
 
-    <main class="main-content">
-        <header class="top-header">
-            <h1>Relatórios de Desempenho</h1>
-            <div class="user-info"><span>Bem-vindo, Administrador</span></div>
+    <main>
+        <header class="topo">
+            <h1>Relatórios</h1>
+            <div class="usuario">
+                <span>Bem-vindo, Administrador</span>
+                <form action="logout.php" method="POST">
+                    <button type="submit" class="btn btn-contorno">Sair</button>
+                </form>
+            </div>
         </header>
 
-        <section class="dashboard-grid">
-            <article class="card" style="grid-column: 1 / -1;">
-                <h3>Relatórios de Desempenho</h3>
-                <p>Gere relatórios de consumo hídrico, crescimento das plantas e alertas do sistema nos últimos 30 dias.</p>
-                <button class="btn" style="width: max-content; margin-top: 15px;">Exportar PDF</button>
-            </article>
+        <div class="barra">
+            <p id="atualizado-em" data-completo>Carregando dados…</p>
+            <div class="barra-acoes">
+                <button type="button" class="btn" id="btn-imprimir">Imprimir / salvar em PDF</button>
+            </div>
+        </div>
+        <p id="aviso" class="aviso" role="alert" hidden></p>
+
+        <section class="indicadores" aria-label="Resumo">
+            <div><span class="rotulo">Áreas ativas</span><strong id="areas-ativas" data-numero>--</strong></div>
+            <div><span class="rotulo">Temperatura</span><strong id="temperatura">-- °C</strong></div>
+            <div><span class="rotulo">Umidade do solo (média)</span><strong id="umidade-solo">-- %</strong></div>
+            <div><span class="rotulo">Umidade do ar</span><strong id="umidade-ar">-- %</strong></div>
         </section>
+
+        <div class="colunas">
+            <section class="painel">
+                <h3>Áreas</h3>
+                <div class="tabela-rolagem">
+                    <table>
+                        <thead>
+                            <tr><th>Área</th><th>Umidade</th><th>pH</th><th>Situação</th></tr>
+                        </thead>
+                        <tbody id="lista-areas">
+                            <tr><td colspan="4" class="vazio">Carregando…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="coluna-lateral">
+                <section class="painel">
+                    <h3>Irrigação</h3>
+                    <dl>
+                        <div><dt>Bomba</dt><dd><span id="status-bomba" class="situacao">--</span></dd></div>
+                        <div><dt>Caixa d'água</dt><dd><strong id="nivel-agua">-- %</strong></dd></div>
+                    </dl>
+                    <p id="proxima-irrigacao" class="nota">Próxima irrigação: --</p>
+                </section>
+                <section class="painel">
+                    <h3>Estoque de insumos</h3>
+                    <dl>
+                        <div><dt>Fertilizante</dt><dd id="fertilizante">--</dd></div>
+                        <div><dt>Substrato</dt><dd id="substrato">--</dd></div>
+                        <div><dt>Sementes de tomate</dt><dd id="sementes-tomate">--</dd></div>
+                    </dl>
+                </section>
+            </div>
+        </div>
     </main>
 
     <script src="index_dashboard.js"></script>

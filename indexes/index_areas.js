@@ -44,12 +44,12 @@ function hoje() {
 // Min > max = culturas incompatíveis na mesma área (checado antes da leitura).
 function avaliarFaixa(valor, min, max) {
     if (min !== undefined && max !== undefined && min > max) {
-        return { texto: "Culturas incompatíveis", classe: "badge-warn" };
+        return { texto: "Culturas incompatíveis", classe: "st-alerta" };
     }
-    if (valor === null || valor === undefined) return { texto: "Sem leitura", classe: "badge-muted" };
-    if (valor < min) return { texto: "Abaixo do ideal", classe: "badge-warn" };
-    if (valor > max) return { texto: "Acima do ideal", classe: "badge-warn" };
-    return { texto: "Dentro da faixa", classe: "badge-ok" };
+    if (valor === null || valor === undefined) return { texto: "Sem leitura", classe: "" };
+    if (valor < min) return { texto: "Abaixo do ideal", classe: "st-alerta" };
+    if (valor > max) return { texto: "Acima do ideal", classe: "st-alerta" };
+    return { texto: "Dentro da faixa", classe: "st-ok" };
 }
 
 function preencherStat(id, valor, ideal, status) {
@@ -58,7 +58,7 @@ function preencherStat(id, valor, ideal, status) {
     box.querySelector('[data-role="ideal"]').textContent = ideal;
     const badge = box.querySelector('[data-role="status"]');
     badge.textContent = status.texto;
-    badge.className = "badge " + status.classe;
+    badge.className = "situacao " + status.classe;
 }
 
 // ---------- Comunicação com o servidor ----------
@@ -163,7 +163,7 @@ function renderizar() {
         preencherStat("stat-ph", "--", "Ideal: --", avaliarFaixa(null));
         $("stat-plantas").querySelector('[data-role="valor"]').textContent = 0;
         $("titulo-plantas").textContent = "Plantas (0)";
-        lista.appendChild(criar("div", "empty", "Crie uma área no formulário \"Nova área\" para começar."));
+        lista.appendChild(criar("div", "vazio", "Crie uma área no formulário \"Nova área\" para começar."));
         return;
     }
 
@@ -194,7 +194,7 @@ function renderizar() {
     $("titulo-plantas").textContent = `Plantas (${area.plantas.length})`;
 
     if (area.plantas.length === 0) {
-        lista.appendChild(criar("div", "empty", "Nenhuma planta nesta área. Use \"Plantar na área\" para registrar um plantio."));
+        lista.appendChild(criar("div", "vazio", "Nenhuma planta nesta área. Use \"Plantar na área\" para registrar um plantio."));
         return;
     }
 
@@ -204,7 +204,7 @@ function renderizar() {
         const header = criar("header");
         header.appendChild(criar("h4", "", p.nome));
 
-        const remover = criar("button", "btn btn-ghost btn-sm", "Remover");
+        const remover = criar("button", "btn btn-contorno btn-pequeno", "Remover");
         remover.type = "button";
         remover.addEventListener("click", async () => {
             if (!confirm(`Remover ${p.nome} desta área?`)) return;
@@ -355,6 +355,6 @@ document.addEventListener("DOMContentLoaded", () => {
     carregar().catch((erro) => {
         $("titulo-area").textContent = "Não foi possível carregar as áreas";
         $("lista-plantas").innerHTML = "";
-        $("lista-plantas").appendChild(criar("div", "empty", erro.message));
+        $("lista-plantas").appendChild(criar("div", "vazio", erro.message));
     });
 });

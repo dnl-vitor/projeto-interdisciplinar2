@@ -4,38 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIE - Estoque</title>
-    <link rel="stylesheet" href="../src/style/style_dashboard.css">
+    <link rel="stylesheet" href="../src/style/dashboard.css">
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="logo"><h2>GIE</h2></div>
-        <nav class="menu">
+    <aside class="lateral">
+        <h2 class="logo">GIE</h2>
+        <nav>
             <ul>
-               <li><a href="index_dashboard.php">Dashboard</a></li>
+                <li><a href="index_dashboard.php">Dashboard</a></li>
                 <li><a href="index_areas.html">Áreas e Culturas</a></li>
-                <li><a href="index_irrigacao.html">Irrigação & Sensores</a></li>
-                <li><a href="index_estoque.html" class="active">Estoque de Insumos</a></li>
+                <li><a href="index_irrigacao.html">Irrigação &amp; Sensores</a></li>
+                <li><a href="index_estoque.html" class="ativo" aria-current="page">Estoque de Insumos</a></li>
                 <li><a href="index_relatorios.html">Relatórios</a></li>
             </ul>
         </nav>
     </aside>
 
-    <main class="main-content">
-        <header class="top-header">
-            <h1>Estoque de Insumos</h1>
-            <div class="user-info"><span>Bem-vindo, Administrador</span></div>
+    <main>
+        <header class="topo">
+            <h1>Estoque de insumos</h1>
+            <div class="usuario">
+                <span>Bem-vindo, Administrador</span>
+                <form action="logout.php" method="POST">
+                    <button type="submit" class="btn btn-contorno">Sair</button>
+                </form>
+            </div>
         </header>
 
-        <section class="dashboard-grid">
-            <article class="card">
-                <h3>Insumos Disponíveis</h3>
-                <ul>
-                    <li>Fertilizante: <strong id="fertilizante" class="highlight-green">--</strong></li>
-                    <li>Substrato: <strong id="substrato" class="highlight-green">--</strong></li>
-                    <li>Sementes de Tomate: <strong id="sementes-tomate" class="highlight-green">--</strong></li>
-                </ul>
-                <button class="btn" style="margin-top: 15px;">Atualizar Estoque</button>
-            </article>
+        <div class="barra">
+            <p id="atualizado-em">Carregando dados…</p>
+            <div class="barra-acoes">
+                <button type="button" class="btn btn-contorno" id="btn-atualizar">Atualizar estoque</button>
+            </div>
+        </div>
+        <p id="aviso" class="aviso" role="alert" hidden></p>
+
+        <section class="painel">
+            <h3>Insumos disponíveis</h3>
+            <dl>
+                <div><dt>Fertilizante</dt><dd id="fertilizante">--</dd></div>
+                <div><dt>Substrato</dt><dd id="substrato">--</dd></div>
+                <div><dt>Sementes de tomate</dt><dd id="sementes-tomate">--</dd></div>
+            </dl>
         </section>
     </main>
 

@@ -4,40 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIE - Irrigação e Sensores</title>
-    <link rel="stylesheet" href="../src/style/style_dashboard.css">
+    <link rel="stylesheet" href="../src/style/dashboard.css">
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="logo"><h2>GIE</h2></div>
-        <nav class="menu">
+    <aside class="lateral">
+        <h2 class="logo">GIE</h2>
+        <nav>
             <ul>
-               <li><a href="index_dashboard.php">Dashboard</a></li>
+                <li><a href="index_dashboard.php">Dashboard</a></li>
                 <li><a href="index_areas.html">Áreas e Culturas</a></li>
-                <li><a href="index_irrigacao.html" class="active">Irrigação & Sensores</a></li>
+                <li><a href="index_irrigacao.html" class="ativo" aria-current="page">Irrigação &amp; Sensores</a></li>
                 <li><a href="index_estoque.html">Estoque de Insumos</a></li>
                 <li><a href="index_relatorios.html">Relatórios</a></li>
             </ul>
         </nav>
     </aside>
 
-    <main class="main-content">
-        <header class="top-header">
-            <h1>Controle de Irrigação</h1>
-            <div class="user-info"><span>Bem-vindo, Administrador</span></div>
+    <main>
+        <header class="topo">
+            <h1>Irrigação e sensores</h1>
+            <div class="usuario">
+                <span>Bem-vindo, Administrador</span>
+                <form action="logout.php" method="POST">
+                    <button type="submit" class="btn btn-contorno">Sair</button>
+                </form>
+            </div>
         </header>
 
-        <section class="dashboard-grid">
-            <article class="card" style="grid-column: 1 / -1;">
-                <h3>Controle Avançado de Irrigação e Sensores</h3>
-                <p>Configure regras automáticas baseadas em sensores de umidade, temperatura e previsão do tempo.</p>
-                <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <input type="number" id="input-temp" placeholder="Temp (°C)" style="width: auto;">
-                    <input type="number" id="input-umi-ar" placeholder="Umid. Ar (%)" style="width: auto;">
-                    <input type="number" id="input-umi-solo" placeholder="Umid. Solo (%)" style="width: auto;">
-                    <button class="btn" id="btn-salvar-leitura">Salvar Leitura Manual</button>
-                </div>
-            </article>
+        <p id="aviso" class="aviso" role="alert" hidden></p>
+
+        <section class="indicadores tres" aria-label="Leituras atuais">
+            <div>
+                <span class="rotulo">Temperatura</span>
+                <strong id="temperatura">-- °C</strong>
+            </div>
+            <div>
+                <span class="rotulo">Umidade do solo (média)</span>
+                <strong id="umidade-solo">-- %</strong>
+            </div>
+            <div>
+                <span class="rotulo">Umidade do ar</span>
+                <strong id="umidade-ar">-- %</strong>
+            </div>
         </section>
+
+        <div class="colunas">
+            <section class="painel">
+                <h3>Registrar leitura manual</h3>
+                <div class="form">
+                    <div class="campo">
+                        <label for="input-temp">Temperatura (°C)</label>
+                        <input type="number" id="input-temp" step="any" placeholder="25">
+                    </div>
+                    <div class="campo">
+                        <label for="input-umi-ar">Umidade do ar (%)</label>
+                        <input type="number" id="input-umi-ar" step="any" min="0" max="100" placeholder="60">
+                    </div>
+                    <div class="campo">
+                        <label for="input-umi-solo">Umidade do solo (%)</label>
+                        <input type="number" id="input-umi-solo" step="any" min="0" max="100" placeholder="45">
+                    </div>
+                    <div class="acoes">
+                        <button type="button" class="btn" id="btn-salvar-leitura">Salvar leitura</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="painel">
+                <h3>Bomba de irrigação</h3>
+                <dl>
+                    <div><dt>Status</dt><dd><span id="status-bomba" class="situacao">--</span></dd></div>
+                    <div><dt>Caixa d'água</dt><dd><strong id="nivel-agua">-- %</strong></dd></div>
+                </dl>
+                <progress id="barra-agua" max="100" value="0" aria-label="Nível da caixa d'água"></progress>
+                <p id="proxima-irrigacao" class="nota">Próxima irrigação: --</p>
+                <button type="button" class="btn" id="btn-irrigacao" data-dinamico>Ligar ou desligar bomba</button>
+            </section>
+        </div>
     </main>
 
     <script src="index_dashboard.js"></script>

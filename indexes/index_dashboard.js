@@ -35,10 +35,12 @@ function enviar(dados) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const isDashboard = document.getElementById("areas-ativas") !== null;
-    const isEstoque   = document.getElementById("fertilizante") !== null;
+    // A página busca o resumo da estufa se tiver qualquer um destes elementos
+    // (dashboard, estoque, irrigação e relatórios).
+    const temDados = ["areas-ativas", "fertilizante", "status-bomba", "temperatura"]
+        .some((id) => document.getElementById(id) !== null);
 
-    if (isDashboard || isEstoque) {
+    if (temDados) {
         carregarDashboard();
         // Atualiza sozinho a cada 10 s, mas só com a aba visível
         setInterval(() => { if (!document.hidden) carregarDashboard(); }, 10000);
@@ -52,6 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
             btnAtualizar.disabled = false;
         });
     }
+
+    // Relatórios: imprimir ou salvar em PDF pelo navegador
+    const btnImprimir = document.getElementById("btn-imprimir");
+    if (btnImprimir) btnImprimir.addEventListener("click", () => window.print());
 
     // Liga/desliga a bomba de irrigação
     const btnIrrigacao = document.getElementById("btn-irrigacao");
@@ -95,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("input-umi-ar").value = "";
                 document.getElementById("input-umi-solo").value = "";
 
-                if (isDashboard) carregarDashboard();
+                if (temDados) carregarDashboard();
             } catch (erro) {
                 console.error("Erro ao salvar leitura:", erro);
                 alert("Erro ao gravar: " + erro.message);
@@ -115,7 +121,13 @@ async function carregarDashboard() {
         atualizarEstoque(dados);
 
         const hora = document.getElementById("atualizado-em");
-        if (hora) hora.textContent = "Atualizado às " + new Date().toLocaleTimeString("pt-BR");
+        if (hora) {
+            // data-completo: mostra data e hora (relatório); senão só a hora
+            const agora = new Date();
+            hora.textContent = hora.dataset.completo !== undefined
+                ? "Gerado em " + agora.toLocaleString("pt-BR")
+                : "Atualizado às " + agora.toLocaleTimeString("pt-BR");
+        }
         if (aviso) aviso.hidden = true;
     } catch (erro) {
         console.error("Erro ao carregar dashboard:", erro);

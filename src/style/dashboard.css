@@ -77,6 +77,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--tinta); outline
 /* Conteúdo */
 main { padding: 1.5rem 2rem 3rem; max-width: 1100px; width: 100%; }
 .topo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+.topo { margin-bottom: 1rem; }
 .topo h1 { font-size: 1.5rem; }
 .usuario, .barra, .barra-acoes { display: flex; align-items: center; gap: 1rem; }
 .usuario { color: var(--suave); }
@@ -117,7 +118,7 @@ main { padding: 1.5rem 2rem 3rem; max-width: 1100px; width: 100%; }
 .coluna-lateral { display: grid; gap: 1.25rem; }
 .painel { padding: 1.1rem 1.25rem; background: var(--painel); border: 1px solid var(--linha); border-radius: 6px; }
 .painel h3 { font-size: 1rem; margin-bottom: 0.8rem; }
-.painel-topo { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.8rem; }
+.painel-topo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
 .painel-topo h3 { margin: 0; }
 .painel-topo a { font-size: 0.9rem; }
 .painel .btn { margin-top: 0.9rem; }
@@ -150,6 +151,45 @@ tr:last-child td { border-bottom: 0; }
 .st-ok::before, [data-ligada="true"]::before { background: var(--ok); }
 .st-alerta::before { background: var(--atencao); }
 
+/* Variações de indicadores e páginas de formulário */
+.indicadores.tres { grid-template-columns: repeat(3, 1fr); }
+.indicadores .nota, .indicadores .situacao { display: block; margin-top: 0.2rem; font-size: 0.85rem; }
+.indicadores .situacao { color: var(--texto); }
+.barra h2 { color: var(--texto); font-size: 1.15rem; }
+.seletor { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
+.seletor select { width: auto; min-width: 180px; }
+.pilha { display: grid; gap: 1.25rem; margin-top: 1.25rem; }
+.formularios { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; align-items: start; }
+
+/* Plantas da área */
+.plantas { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.9rem; }
+.plant-card { padding: 0.9rem 1rem; border: 1px solid var(--linha); border-radius: 6px; }
+.plant-card header { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem; }
+.plant-card h4 { font-size: 1rem; }
+.plant-card dl { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 1rem; font-size: 0.9rem; }
+.plant-card dd { text-align: right; font-weight: 400; }
+.plantas .vazio { grid-column: 1 / -1; }
+.vazio { color: var(--suave); text-align: center; padding: 1.5rem 0; }
+
+/* Formulários */
+.form { display: grid; gap: 0.9rem; }
+.campo { display: grid; gap: 0.3rem; }
+.campo label { font-size: 0.85rem; color: var(--suave); }
+.linha { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.acoes { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.painel .acoes .btn { margin-top: 0; }
+.btn-pequeno { padding: 0.2rem 0.7rem; font-size: 0.85rem; }
+input, select {
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+    background: var(--fundo);
+    color: var(--texto);
+    font: inherit;
+}
+input:focus-visible, select:focus-visible { outline: 2px solid var(--tinta); outline-offset: 1px; }
+
 @media (max-width: 900px) {
     .colunas { grid-template-columns: 1fr; }
     .indicadores { grid-template-columns: 1fr 1fr; }
@@ -164,4 +204,20 @@ tr:last-child td { border-bottom: 0; }
     .lateral a { white-space: nowrap; border-left: 0; border-bottom: 3px solid transparent; }
     .lateral a.ativo { border-bottom-color: var(--tinta); }
     main { padding: 1rem; }
+}
+
+@media (max-width: 520px) {
+    .linha { grid-template-columns: 1fr; }
+    .indicadores.tres { grid-template-columns: 1fr; }
+    .indicadores.tres div { border-left: 0; border-top: 1px solid var(--linha); }
+    .indicadores.tres div:first-child { border-top: 0; }
+}
+
+/* Impressão (página de Relatórios): só o conteúdo, em preto e branco */
+@media print {
+    body { display: block; background: #fff; color: #000; }
+    .lateral, .barra-acoes, .usuario, .btn, .painel-topo a { display: none; }
+    main { max-width: none; padding: 0; }
+    .painel, .indicadores { border-color: #999; background: #fff; break-inside: avoid; }
+    .colunas { grid-template-columns: 1fr; }
 }
