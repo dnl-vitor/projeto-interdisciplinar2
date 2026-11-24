@@ -1,0 +1,335 @@
+
+/* =========================================
+   GIE - ESTOQUE DE INSUMOS
+========================================= */
+
+:root {
+    --verde-escuro: #123b18;
+    --verde-principal: #16852c;
+    --verde-claro: #5cae3c;
+    --verde-hover: #0d6821;
+
+    --texto: #17351b;
+    --texto-secundario: #61745f;
+
+    --vidro: rgba(255, 255, 255, 0.68);
+    --vidro-borda: rgba(255, 255, 255, 0.45);
+
+    --sombra: 0 8px 30px rgba(0, 30, 0, 0.18);
+    --radius: 18px;
+}
+
+/* RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* FUNDO */
+
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--texto);
+
+    background:
+        linear-gradient(
+            rgba(5, 35, 8, 0.48),
+            rgba(5, 35, 8, 0.55)
+        ),
+        var(--bg-estufa, linear-gradient(135deg, #234c20, #7cae53));
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 30px 20px;
+
+    background: rgba(14, 54, 19, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    border-right: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+
+    z-index: 10;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.logo h2 {
+    font-size: 35px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: white;
+}
+
+/* MENU */
+
+.menu ul {
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 12px;
+}
+
+.menu a {
+    display: block;
+    padding: 15px 18px;
+
+    text-decoration: none;
+    color: rgba(255,255,255,0.85);
+
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: 0.3s ease;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: rgba(91, 190, 67, 0.35);
+    color: white;
+    box-shadow: inset 3px 0 var(--verde-claro);
+    transform: translateX(4px);
+}
+
+/* CONTEÚDO */
+
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+/* CABEÇALHO */
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 28px;
+    margin-bottom: 25px;
+
+    background: var(--vidro);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid var(--vidro-borda);
+    border-radius: var(--radius);
+
+    box-shadow: var(--sombra);
+}
+
+.top-header h1 {
+    font-size: 27px;
+    color: var(--verde-escuro);
+}
+
+.user-info {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--verde-escuro);
+}
+
+/* GRID */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* CARDS */
+
+.card {
+    padding: 28px;
+
+    background: var(--vidro);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    border: 1px solid var(--vidro-borda);
+    border-radius: var(--radius);
+
+    box-shadow: var(--sombra);
+
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 12px 35px rgba(0, 30, 0, 0.23);
+}
+
+.card h3 {
+    color: var(--verde-escuro);
+    font-size: 21px;
+    margin-bottom: 22px;
+    font-weight: 700;
+}
+
+/* LISTA DE INSUMOS */
+
+.card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px 20px;
+
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 13px;
+
+    color: var(--texto);
+    font-size: 15px;
+
+    transition: 0.3s ease;
+}
+
+.card ul li:hover {
+    background: rgba(255,255,255,0.9);
+    transform: translateX(4px);
+}
+
+/* QUANTIDADE DO ESTOQUE */
+
+.highlight-green {
+    color: var(--verde-principal);
+    font-size: 19px;
+    font-weight: 800;
+}
+
+/* BOTÕES */
+
+.btn {
+    padding: 13px 22px;
+
+    border: none;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        135deg,
+        #168d2b,
+        #08621d
+    );
+
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 12px rgba(0,90,20,0.25);
+
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(
+        135deg,
+        #20a83b,
+        #087222
+    );
+
+    transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(0,90,20,0.3);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 210px;
+    }
+
+    .main-content {
+        margin-left: 210px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        min-height: auto;
+        padding: 15px;
+    }
+
+    .logo {
+        margin-bottom: 15px;
+    }
+
+    .logo h2 {
+        font-size: 28px;
+    }
+
+    .menu ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .menu li {
+        margin: 0;
+    }
+
+    .menu a {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .top-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .top-header h1 {
+        font-size: 22px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
