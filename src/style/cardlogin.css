@@ -554,3 +554,13 @@ input:focus-visible {
         font-size: 1.4rem;
     }
 }
+
+/* bloqueia rolar a tela */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Firefox */
+html, body {
+    scrollbar-width: none;
+}   
