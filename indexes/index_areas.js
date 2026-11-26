@@ -91,8 +91,8 @@ function enviar(dados) {
 
 async function carregar() {
     const corpo = await pedir(`${API}?acao=listar_areas`);
-    areas = corpo.areas || [];
-    catalogo = corpo.catalogo || [];
+    areas = Array.isArray(corpo.areas) ? corpo.areas : [];
+    catalogo = Array.isArray(corpo.catalogo) ? corpo.catalogo : [];
     if (!areas.some((a) => a.id === areaAtual)) {
         areaAtual = areas.length > 0 ? areas[0].id : null;
     }

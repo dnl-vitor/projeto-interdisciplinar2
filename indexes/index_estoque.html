@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIE - Estoque</title>
+    <title>GIE - Estoque de Insumos</title>
     <link rel="stylesheet" href="../src/style/dashboard.css">
     <link rel="shortcut icon" href="../src/imagens/logo2.png" type="image/x-icon">
-
 </head>
 <body>
     <aside class="lateral">
@@ -34,23 +33,179 @@
         </header>
 
         <div class="barra">
-            <p id="atualizado-em">Carregando dados…</p>
+            <p id="atualizado-em">Carregando estoque…</p>
             <div class="barra-acoes">
-                <button type="button" class="btn btn-contorno" id="btn-atualizar">Atualizar estoque</button>
+                <button type="button" class="btn btn-contorno" id="btn-atualizar">Atualizar</button>
             </div>
         </div>
-        <p id="aviso" class="aviso" role="alert" hidden></p>
 
-        <section class="painel">
-            <h3>Insumos disponíveis</h3>
-            <dl>
-                <div><dt>Fertilizante</dt><dd id="fertilizante">--</dd></div>
-                <div><dt>Substrato</dt><dd id="substrato">--</dd></div>
-                <div><dt>Sementes de tomate</dt><dd id="sementes-tomate">--</dd></div>
-            </dl>
+        <p id="msg-estoque" class="msg-feedback" role="status" hidden></p>
+
+        <section class="indicadores tres" aria-label="Resumo do estoque">
+            <div>
+                <span class="rotulo">Insumos cadastrados</span>
+                <strong id="kpi-total-insumos">--</strong>
+            </div>
+            <div>
+                <span class="rotulo">Em alerta (baixo ou zerado)</span>
+                <strong id="kpi-alertas-insumos">--</strong>
+            </div>
+            <div>
+                <span class="rotulo">Movimentações recentes</span>
+                <strong id="kpi-total-mov">--</strong>
+            </div>
         </section>
+
+        <div class="pilha">
+            <section class="painel">
+                <h3>Insumos disponíveis</h3>
+                <div class="tabela-rolagem">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Insumo</th>
+                                <th>Categoria</th>
+                                <th>Estoque atual</th>
+                                <th>Limite mínimo</th>
+                                <th>Consumo total</th>
+                                <th>Situação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-insumos">
+                            <tr><td colspan="6" class="vazio">Carregando insumos…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="formularios">
+                <!-- Formulário 1: Repor Estoque (Entrada) -->
+                <section class="painel">
+                    <h3>Repor estoque (entrada)</h3>
+                    <form class="form" id="form-entrada">
+                        <div class="campo">
+                            <label for="entrada-insumo">Insumo</label>
+                            <select id="entrada-insumo" name="id_insumo" required></select>
+                        </div>
+                        <div class="campo">
+                            <label for="entrada-qtd">Quantidade a adicionar</label>
+                            <input type="number" id="entrada-qtd" name="quantidade" step="0.1" min="0.1" placeholder="Ex.: 10" required>
+                        </div>
+                        <div class="campo">
+                            <label for="entrada-obs">Observação (opcional)</label>
+                            <input type="text" id="entrada-obs" name="observacao" maxlength="200" placeholder="Ex.: Compra fornecedor">
+                        </div>
+                        <div class="acoes">
+                            <button type="submit" class="btn">Registrar entrada</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Formulário 2: Registrar Consumo (Saída) -->
+                <section class="painel">
+                    <h3>Registrar consumo (saída)</h3>
+                    <form class="form" id="form-consumo">
+                        <div class="campo">
+                            <label for="consumo-insumo">Insumo</label>
+                            <select id="consumo-insumo" name="id_insumo" required></select>
+                        </div>
+                        <div class="linha">
+                            <div class="campo">
+                                <label for="consumo-area">Canteiro / Área</label>
+                                <select id="consumo-area" name="id_area" required></select>
+                            </div>
+                            <div class="campo">
+                                <label for="consumo-qtd">Quantidade aplicada</label>
+                                <input type="number" id="consumo-qtd" name="quantidade" step="0.1" min="0.1" placeholder="Ex.: 2.5" required>
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <label for="consumo-motivo">Motivo</label>
+                            <select id="consumo-motivo" name="motivo">
+                                <option value="adubacao">Adubação</option>
+                                <option value="correcao_ph">Correção de pH</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="consumo-obs">Observação (opcional)</label>
+                            <input type="text" id="consumo-obs" name="observacao" maxlength="200" placeholder="Ex.: Adubação de cobertura">
+                        </div>
+                        <div class="acoes">
+                            <button type="submit" class="btn">Registrar consumo</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Formulário 3: Novo Insumo -->
+                <section class="painel">
+                    <h3>Cadastrar novo insumo</h3>
+                    <form class="form" id="form-novo-insumo">
+                        <div class="campo">
+                            <label for="novo-nome">Nome do insumo</label>
+                            <input type="text" id="novo-nome" name="nome_ins" maxlength="100" placeholder="Ex.: Substrato Orgânico" required>
+                        </div>
+                        <div class="linha">
+                            <div class="campo">
+                                <label for="novo-categoria">Categoria</label>
+                                <select id="novo-categoria" name="categoria">
+                                    <option value="fertilizante">Fertilizante</option>
+                                    <option value="corretivo_ph">Corretivo de pH</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                            <div class="campo">
+                                <label for="novo-unidade">Unidade</label>
+                                <select id="novo-unidade" name="unidade">
+                                    <option value="kg">kg</option>
+                                    <option value="g">g</option>
+                                    <option value="L">L</option>
+                                    <option value="mL">mL</option>
+                                    <option value="un">un</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="linha">
+                            <div class="campo">
+                                <label for="novo-estoque">Estoque inicial</label>
+                                <input type="number" id="novo-estoque" name="estoque_inicial" step="0.1" min="0" value="0">
+                            </div>
+                            <div class="campo">
+                                <label for="novo-limite">Limite mínimo (alerta)</label>
+                                <input type="number" id="novo-limite" name="lmt_min" step="0.1" min="0" placeholder="Ex.: 5">
+                            </div>
+                        </div>
+                        <div class="acoes">
+                            <button type="submit" class="btn">Cadastrar insumo</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <section class="painel">
+                <h3>Histórico de movimentações (entradas e consumos)</h3>
+                <div class="tabela-rolagem">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Tipo</th>
+                                <th>Insumo</th>
+                                <th>Quantidade</th>
+                                <th>Área / Motivo</th>
+                                <th>Observação</th>
+                                <th>Responsável</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-movimentacoes">
+                            <tr><td colspan="7" class="vazio">Carregando movimentações…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <script src="index_dashboard.js"></script>
+    <script src="index_estoque.js?v=1"></script>
 </body>
 </html>

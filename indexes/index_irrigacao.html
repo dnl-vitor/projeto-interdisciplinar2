@@ -6,7 +6,6 @@
     <title>GIE - Irrigação e Sensores</title>
     <link rel="stylesheet" href="../src/style/dashboard.css">
     <link rel="shortcut icon" href="../src/imagens/logo2.png" type="image/x-icon">
-
 </head>
 <body>
     <aside class="lateral">
@@ -33,11 +32,20 @@
             </div>
         </header>
 
-        <p id="aviso" class="aviso" role="alert" hidden></p>
+        <div class="barra">
+            <span id="badge-canteiro-ativo" class="situacao">Carregando canteiros…</span>
+            <div class="seletor">
+                <label for="select-canteiro" style="font-size:0.85rem;">Canteiro:</label>
+                <select id="select-canteiro" aria-label="Canteiro selecionado"></select>
+                <button type="button" class="btn btn-contorno" id="btn-atualizar">Atualizar</button>
+            </div>
+        </div>
+
+        <p id="msg-irrigacao" class="msg-feedback" role="status" hidden></p>
 
         <section class="indicadores tres" aria-label="Leituras atuais">
             <div>
-                <span class="rotulo">Temperatura</span>
+                <span class="rotulo">Temperatura da estufa</span>
                 <strong id="temperatura">-- °C</strong>
             </div>
             <div>
@@ -45,26 +53,31 @@
                 <strong id="umidade-solo">-- %</strong>
             </div>
             <div>
-                <span class="rotulo">Umidade do ar</span>
-                <strong id="umidade-ar">-- %</strong>
+                <span class="rotulo">Caixa d'água</span>
+                <strong id="nivel-agua-kpi">-- %</strong>
             </div>
         </section>
 
         <div class="colunas">
             <section class="painel">
                 <h3>Registrar leitura manual</h3>
+                <p class="nota" style="margin-top:0; margin-bottom:0.9rem;">
+                    Atualiza o canteiro selecionado (a temperatura aplica-se à estufa inteira).
+                </p>
                 <div class="form">
                     <div class="campo">
-                        <label for="input-temp">Temperatura (°C)</label>
-                        <input type="number" id="input-temp" step="any" placeholder="25">
+                        <label for="input-temp">Temperatura da estufa (°C)</label>
+                        <input type="number" id="input-temp" step="0.1" placeholder="Ex.: 25.0">
                     </div>
-                    <div class="campo">
-                        <label for="input-umi-ar">Umidade do ar (%)</label>
-                        <input type="number" id="input-umi-ar" step="any" min="0" max="100" placeholder="60">
-                    </div>
-                    <div class="campo">
-                        <label for="input-umi-solo">Umidade do solo (%)</label>
-                        <input type="number" id="input-umi-solo" step="any" min="0" max="100" placeholder="45">
+                    <div class="linha">
+                        <div class="campo">
+                            <label for="input-umi-solo">Umidade do solo (%)</label>
+                            <input type="number" id="input-umi-solo" step="0.1" min="0" max="100" placeholder="Ex.: 45.0">
+                        </div>
+                        <div class="campo">
+                            <label for="input-ph-solo">pH do solo (0 a 14)</label>
+                            <input type="number" id="input-ph-solo" step="0.1" min="0" max="14" placeholder="Ex.: 6.5">
+                        </div>
                     </div>
                     <div class="acoes">
                         <button type="button" class="btn" id="btn-salvar-leitura">Salvar leitura</button>
@@ -73,18 +86,86 @@
             </section>
 
             <section class="painel">
-                <h3>Bomba de irrigação</h3>
+                <h3>Bomba e acionamento de irrigação</h3>
                 <dl>
-                    <div><dt>Status</dt><dd><span id="status-bomba" class="situacao">--</span></dd></div>
+                    <div><dt>Status da bomba</dt><dd><span id="status-bomba" class="situacao">--</span></dd></div>
                     <div><dt>Caixa d'água</dt><dd><strong id="nivel-agua">-- %</strong></dd></div>
                 </dl>
                 <progress id="barra-agua" max="100" value="0" aria-label="Nível da caixa d'água"></progress>
-                <p id="proxima-irrigacao" class="nota">Próxima irrigação: --</p>
-                <button type="button" class="btn" id="btn-irrigacao" data-dinamico>Ligar ou desligar bomba</button>
+                <p id="proxima-irrigacao" class="nota">Última irrigação: --</p>
+                <div class="acoes" style="margin-top:0.8rem;">
+                    <button type="button" class="btn btn-contorno" id="btn-irrigacao" data-dinamico>Ligar ou desligar bomba</button>
+                </div>
+
+                <hr class="divisor">
+
+                <h3>Irrigar canteiro selecionado</h3>
+                <div class="form">
+                    <div class="linha">
+                        <div class="campo">
+                            <label for="select-tipo-irrigacao">Modo de irrigação</label>
+                            <select id="select-tipo-irrigacao">
+                                <option value="manual">Manual (Volume ideal)</option>
+                                <option value="forcado">Forçada (Tempo exato)</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="input-minutos">Tempo em min (opcional)</label>
+                            <input type="number" step="0.5" min="0.5" id="input-minutos" placeholder="Ex.: 2.0">
+                        </div>
+                    </div>
+                    <div class="acoes">
+                        <button type="button" class="btn" id="btn-acionar-irrigacao">Irrigar canteiro</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="pilha">
+            <section class="painel">
+                <h3>Histórico de acionamentos de irrigação</h3>
+                <div class="tabela-rolagem">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Canteiro</th>
+                                <th>Tipo</th>
+                                <th>Água (L)</th>
+                                <th>Tempo (min)</th>
+                                <th>Responsável</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-hist-irrigacao">
+                            <tr><td colspan="6" class="vazio">Carregando histórico…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="painel">
+                <h3>Histórico de mudanças (leituras de sensores)</h3>
+                <div class="tabela-rolagem">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Local / Canteiro</th>
+                                <th>Sensor</th>
+                                <th>Valor</th>
+                                <th>Origem</th>
+                                <th>Responsável</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-hist-leituras">
+                            <tr><td colspan="6" class="vazio">Carregando histórico…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </div>
     </main>
 
-    <script src="index_dashboard.js"></script>
+    <script src="index_irrigacao.js?v=4"></script>
 </body>
 </html>

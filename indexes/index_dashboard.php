@@ -21,7 +21,7 @@ if (!isset($_SESSION['id_usuario'])) {
             <ul>
                 <li><a href="index_dashboard.php" class="ativo" aria-current="page">Dashboard</a></li>
                 <li><a href="index_areas.html">Áreas e Culturas</a></li>
-                <li><a href="index_irrigacao.html">Irrigação & Sensores</a></li>
+                <li><a href="index_irrigacao.html">Irrigação &amp; Sensores</a></li>
                 <li><a href="index_estoque.html">Estoque de Insumos</a></li>
                 <li><a href="index_relatorios.html">Relatórios</a></li>
             </ul>
@@ -100,12 +100,10 @@ if (!isset($_SESSION['id_usuario'])) {
                 <section class="painel">
                     <div class="painel-topo">
                         <h3>Estoque de insumos</h3>
-                        <a href="index_estoque.html">Ver estoque</a>
+                        <a href="index_estoque.html">Gerenciar estoque</a>
                     </div>
-                    <dl>
-                        <div><dt>Fertilizante</dt><dd id="fertilizante">--</dd></div>
-                        <div><dt>Substrato</dt><dd id="substrato">--</dd></div>
-                        <div><dt>Sementes de tomate</dt><dd id="sementes-tomate">--</dd></div>
+                    <dl id="lista-estoque-resumo">
+                        <div><dt>Carregando…</dt><dd>--</dd></div>
                     </dl>
                 </section>
             </div>

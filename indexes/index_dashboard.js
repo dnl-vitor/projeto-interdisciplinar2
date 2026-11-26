@@ -1,13 +1,11 @@
 /**
  * Arquivo: indexes/index_dashboard.js
- * Objetivo: Carregar os indicadores das abas Dashboard, Estoque e Irrigação,
- *           conectando os botões de irrigação e leitura manual ao dashboard_data.php.
- * Cada função só mexe nos elementos que existem na página atual.
+ * Objetivo: Carregar os indicadores da Visão Geral (Dashboard)
+ *           e controlar o acionamento rápido da bomba de irrigação.
  */
 
 const API = "dashboard_data.php";
 
-// Chama a API e devolve o JSON; lança Error com a mensagem do servidor se algo falhar.
 async function chamarApi(url, opcoes) {
     const resposta = await fetch(url, opcoes);
     if (resposta.status === 401) {
@@ -18,7 +16,7 @@ async function chamarApi(url, opcoes) {
     try {
         corpo = await resposta.json();
     } catch (e) {
-        // resposta que não é JSON (erro de PHP, página em branco...)
+        // resposta não JSON
     }
     if (!resposta.ok || !corpo || corpo.status === "erro") {
         throw new Error((corpo && corpo.mensagem) || "Não foi possível falar com o servidor.");
@@ -35,14 +33,11 @@ function enviar(dados) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // A página busca o resumo da estufa se tiver qualquer um destes elementos
-    // (dashboard, estoque, irrigação e relatórios).
-    const temDados = ["areas-ativas", "fertilizante", "status-bomba", "temperatura"]
+    const temDados = ["areas-ativas", "lista-estoque-resumo", "status-bomba", "temperatura"]
         .some((id) => document.getElementById(id) !== null);
 
     if (temDados) {
         carregarDashboard();
-        // Atualiza sozinho a cada 10 s, mas só com a aba visível
         setInterval(() => { if (!document.hidden) carregarDashboard(); }, 10000);
     }
 
@@ -55,11 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Relatórios: imprimir ou salvar em PDF pelo navegador
-    const btnImprimir = document.getElementById("btn-imprimir");
-    if (btnImprimir) btnImprimir.addEventListener("click", () => window.print());
-
-    // Liga/desliga a bomba de irrigação
     const btnIrrigacao = document.getElementById("btn-irrigacao");
     if (btnIrrigacao) {
         btnIrrigacao.addEventListener("click", async () => {
@@ -72,39 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Não foi possível controlar a irrigação: " + erro.message);
             } finally {
                 btnIrrigacao.disabled = false;
-            }
-        });
-    }
-
-    // Salvar leitura manual (aba Irrigação & Sensores)
-    const btnSalvarLeitura = document.getElementById("btn-salvar-leitura");
-    if (btnSalvarLeitura) {
-        btnSalvarLeitura.addEventListener("click", async () => {
-            const temp    = document.getElementById("input-temp").value;
-            const umiAr   = document.getElementById("input-umi-ar").value;
-            const umiSolo = document.getElementById("input-umi-solo").value;
-
-            if (!temp || !umiAr || !umiSolo) {
-                alert("Por favor, preencha os 3 campos (Temperatura, Umidade do Ar e Umidade do Solo).");
-                return;
-            }
-
-            try {
-                await enviar({
-                    acao: "leitura_manual",
-                    temperatura: parseFloat(temp),
-                    umidade_ar: parseFloat(umiAr),
-                    umidade_solo: parseFloat(umiSolo)
-                });
-                alert("Leitura gravada com sucesso no banco de dados!");
-                document.getElementById("input-temp").value = "";
-                document.getElementById("input-umi-ar").value = "";
-                document.getElementById("input-umi-solo").value = "";
-
-                if (temDados) carregarDashboard();
-            } catch (erro) {
-                console.error("Erro ao salvar leitura:", erro);
-                alert("Erro ao gravar: " + erro.message);
             }
         });
     }
@@ -122,7 +79,6 @@ async function carregarDashboard() {
 
         const hora = document.getElementById("atualizado-em");
         if (hora) {
-            // data-completo: mostra data e hora (relatório); senão só a hora
             const agora = new Date();
             hora.textContent = hora.dataset.completo !== undefined
                 ? "Gerado em " + agora.toLocaleString("pt-BR")
@@ -138,23 +94,21 @@ async function carregarDashboard() {
     }
 }
 
-// Classifica o texto de situação da área para escolher a cor do indicador
 function classeSituacao(texto) {
     const t = String(texto || "").toUpperCase();
     if (/IDEAL|OK|NORMAL|DENTRO/.test(t)) return "st-ok";
-    if (/BAIX|ALT|ACIMA|ABAIXO|CRIT|FORA|ATEN|SECO|ENCHARC/.test(t)) return "st-alerta";
+    if (/BAIX|ALT|ACIMA|ABAIXO|CRIT|FORA|ATEN|SECO|ENCHARC|ZERAD|INCOMPAT/.test(t)) return "st-alerta";
     return "";
 }
 
 function numero(valor, casas) {
-    if (valor === null || valor === undefined) return "--";
+    if (valor === null || valor === undefined || valor === "") return "--";
     return Number(valor).toLocaleString("pt-BR", { minimumFractionDigits: casas, maximumFractionDigits: casas });
 }
 
 function atualizarAreas(dados) {
     const el = document.getElementById("areas-ativas");
     if (el) {
-        // data-numero: mostra só o número (usado nos indicadores do dashboard)
         el.textContent = el.dataset.numero !== undefined ? dados.areasAtivas : `${dados.areasAtivas} Áreas Ativas`;
     }
 
@@ -162,7 +116,6 @@ function atualizarAreas(dados) {
     if (!lista || !Array.isArray(dados.areas)) return;
     lista.innerHTML = "";
 
-    // Tabela (dashboard novo): Área | Umidade | pH | Situação
     if (lista.tagName === "TBODY") {
         if (dados.areas.length === 0) {
             const tr = document.createElement("tr");
@@ -178,8 +131,8 @@ function atualizarAreas(dados) {
             const tr = document.createElement("tr");
             const celulas = [
                 area.nome,
-                area.umidade === undefined ? "--" : (area.umidade === null ? "--" : numero(area.umidade, 1) + " %"),
-                numero(area.ph, 1)
+                area.umidade === null || area.umidade === undefined ? "--" : numero(area.umidade, 1) + " %",
+                area.ph === null || area.ph === undefined ? "--" : numero(area.ph, 1)
             ];
             celulas.forEach((texto) => {
                 const td = document.createElement("td");
@@ -197,7 +150,6 @@ function atualizarAreas(dados) {
         return;
     }
 
-    // Lista simples (layout antigo)
     dados.areas.forEach((area) => {
         const li = document.createElement("li");
         li.textContent = `${area.nome} - ${area.status}`;
@@ -227,7 +179,6 @@ function atualizarIrrigacao(dados) {
         statusBomba.dataset.ligada = ligada;
     }
 
-    // data-dinamico: o botão passa a dizer a ação que vai executar
     const btn = document.getElementById("btn-irrigacao");
     if (btn && btn.dataset.dinamico !== undefined) {
         btn.textContent = ligada ? "Desligar bomba" : "Ligar bomba";
@@ -244,13 +195,34 @@ function atualizarIrrigacao(dados) {
 }
 
 function atualizarEstoque(dados) {
+    const dl = document.getElementById("lista-estoque-resumo");
+    if (dl && Array.isArray(dados.insumos)) {
+        dl.innerHTML = "";
+        if (dados.insumos.length === 0) {
+            dl.innerHTML = `<div><dt>Nenhum insumo cadastrado</dt><dd>--</dd></div>`;
+            return;
+        }
+        dados.insumos.slice(0, 5).forEach((item) => {
+            const div = document.createElement("div");
+            const dt = document.createElement("dt");
+            dt.textContent = item.nome_ins;
+            const dd = document.createElement("dd");
+            const span = document.createElement("span");
+            span.className = "situacao " + classeSituacao(item.status);
+            span.textContent = `${numero(item.estoque, 1)} ${item.unidade}`;
+            dd.appendChild(span);
+            div.appendChild(dt);
+            div.appendChild(dd);
+            dl.appendChild(div);
+        });
+        return;
+    }
+
     if (!dados.estoque) return;
     const fert = document.getElementById("fertilizante");
     if (fert) fert.textContent = dados.estoque.fertilizante;
-
     const sub = document.getElementById("substrato");
     if (sub) sub.textContent = dados.estoque.substrato;
-
     const sem = document.getElementById("sementes-tomate");
     if (sem) sem.textContent = dados.estoque.sementesTomate;
 }

@@ -184,7 +184,7 @@ SELECT i.id_insumo, i.fk_id_garden AS id_garden, i.nome_ins, i.categoria, i.unid
   FROM insumo i;
 
 -- -----------------------------------------------------------------------------
--- ALERTAS CALCULADOS AGORA
+-- ALERTAS CALCULADOS AGORA  (porte de Garden.verificarAlertas() do Java)
 -- `chave` identifica a condição; sp_alertas_sincronizar usa para abrir/fechar.
 -- -----------------------------------------------------------------------------
 CREATE OR REPLACE VIEW vw_alertas_calculados AS

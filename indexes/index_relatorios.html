@@ -6,7 +6,6 @@
     <title>GIE - Relatórios</title>
     <link rel="stylesheet" href="../src/style/dashboard.css">
     <link rel="shortcut icon" href="../src/imagens/logo2.png" type="image/x-icon">
-
 </head>
 <body>
     <aside class="lateral">
@@ -33,57 +32,64 @@
             </div>
         </header>
 
-        <div class="barra">
-            <p id="atualizado-em" data-completo>Carregando dados…</p>
-            <div class="barra-acoes">
-                <button type="button" class="btn" id="btn-imprimir">Imprimir / salvar em PDF</button>
-            </div>
-        </div>
-        <p id="aviso" class="aviso" role="alert" hidden></p>
+        <p id="msg-relatorio" class="msg-feedback" role="status" hidden></p>
 
-        <section class="indicadores" aria-label="Resumo">
-            <div><span class="rotulo">Áreas ativas</span><strong id="areas-ativas" data-numero>--</strong></div>
-            <div><span class="rotulo">Temperatura</span><strong id="temperatura">-- °C</strong></div>
-            <div><span class="rotulo">Umidade do solo (média)</span><strong id="umidade-solo">-- %</strong></div>
-            <div><span class="rotulo">Umidade do ar</span><strong id="umidade-ar">-- %</strong></div>
-        </section>
-
-        <div class="colunas">
+        <div class="pilha">
             <section class="painel">
-                <h3>Áreas</h3>
+                <h3>Gerar novo relatório</h3>
+                <p class="nota" style="margin-top:0; margin-bottom:0.9rem;">
+                    Gera um snapshot completo dos dados atuais da estufa, salva no histórico do banco e permite exportar em formato de documento PDF simples.
+                </p>
+                <div class="linha-acoes">
+                    <select id="select-tipo-relatorio" aria-label="Tipo de relatório" style="width:auto; min-width:220px;">
+                        <option value="completo">Relatório Completo</option>
+                        <option value="areas">Apenas Áreas</option>
+                        <option value="plantas">Apenas Plantas</option>
+                        <option value="irrigacao">Apenas Irrigação</option>
+                        <option value="sensores">Apenas Sensores</option>
+                        <option value="insumos">Apenas Insumos</option>
+                        <option value="alertas">Apenas Alertas</option>
+                    </select>
+                    <button type="button" class="btn" id="btn-gerar-relatorio">Gerar relatório</button>
+                    <button type="button" class="btn btn-contorno" id="btn-exportar-pdf">Exportar PDF (Documento)</button>
+                </div>
+            </section>
+
+            <section class="painel">
+                <div class="painel-topo">
+                    <h3>Relatórios salvos</h3>
+                    <button type="button" class="btn btn-contorno btn-pequeno" id="btn-atualizar-rel">Atualizar lista</button>
+                </div>
                 <div class="tabela-rolagem">
                     <table>
                         <thead>
-                            <tr><th>Área</th><th>Umidade</th><th>pH</th><th>Situação</th></tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Data/Hora</th>
+                                <th>Tipo</th>
+                                <th>Gerado por</th>
+                                <th>Alertas</th>
+                                <th>Ações</th>
+                            </tr>
                         </thead>
-                        <tbody id="lista-areas">
-                            <tr><td colspan="4" class="vazio">Carregando…</td></tr>
+                        <tbody id="tbody-relatorios">
+                            <tr><td colspan="6" class="vazio">Carregando relatórios…</td></tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <div class="coluna-lateral">
-                <section class="painel">
-                    <h3>Irrigação</h3>
-                    <dl>
-                        <div><dt>Bomba</dt><dd><span id="status-bomba" class="situacao">--</span></dd></div>
-                        <div><dt>Caixa d'água</dt><dd><strong id="nivel-agua">-- %</strong></dd></div>
-                    </dl>
-                    <p id="proxima-irrigacao" class="nota">Próxima irrigação: --</p>
-                </section>
-                <section class="painel">
-                    <h3>Estoque de insumos</h3>
-                    <dl>
-                        <div><dt>Fertilizante</dt><dd id="fertilizante">--</dd></div>
-                        <div><dt>Substrato</dt><dd id="substrato">--</dd></div>
-                        <div><dt>Sementes de tomate</dt><dd id="sementes-tomate">--</dd></div>
-                    </dl>
-                </section>
-            </div>
+            <!-- Pré-visualização em formato de folha de documento -->
+            <section class="painel" id="area-visualizacao-relatorio" hidden>
+                <div class="painel-topo">
+                    <h3>Visualização do documento</h3>
+                    <button type="button" class="btn btn-pequeno" id="btn-exportar-pdf-doc">Salvar como PDF</button>
+                </div>
+                <div id="conteudo-relatorio" class="relatorio-folha"></div>
+            </section>
         </div>
     </main>
 
-    <script src="index_dashboard.js"></script>
+    <script src="index_relatorios.js?v=4"></script>
 </body>
 </html>

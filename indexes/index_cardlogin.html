@@ -9,50 +9,48 @@
     <title>login</title>
 </head>
 <body>
-    <!-- Corrigido: 'login' transformado em um ID ou classe -->
     <section id="login-section">
         <div class="card">
             <div class="inf">
-                <img class="imgsocial" src="../src/imagens/usuario-img.jpg" alt="usuario"> 
-                <h1>Bem vindo ao GIE</h1>  
+                <img class="imgsocial" src="../src/imagens/usuario-img.jpg" alt="usuario">
+                <h1>Bem vindo ao GIE</h1>
             </div>
 
-            <!-- Corrigido: Removido o formulário duplicado que envolvia o card -->
-            <form id="meu-formulario" action="login.php" method="POST"> 
-                <div class="labelg"> 
+            <form id="meu-formulario" action="login.php" method="POST">
+                <div class="labelg">
                     <label></label>
-                    <!-- Corrigido: Adicionado id="email" para o JS conseguir encontrar o campo -->
                     <input type="email" id="email" name="email" placeholder="email" required>
                 </div>
 
                 <div class="labelg">
                     <label></label>
-                    <!-- Corrigido: Adicionado id="senha" para o JS conseguir encontrar o campo -->
                     <input type="password" id="senha" name="senha" placeholder="senha" required>
                 </div>
+
+                <p id="mensagem" style="color:#ff7b7b; font-size:14px; min-height:18px; text-align:center;"></p>
 
                 <div class="label">
                     <label><input type="checkbox">lembrar senha</label>
                 </div>
 
                 <div class="botaoentrar">
-                    <!-- Corrigido: A tag <acessar> não existe no HTML, deixado apenas o texto -->
                     <button type="submit">entrar</button>
+                </div>
+
+                <div style="text-align: center;">
+                    <a href="index_cadastro.html" style="color:#ffffff;">criar conta</a>
                 </div>
             </form>
 
-            <!-- Area do script -->
-            <script src="login-background-img.js"></script> <!-- muda as imagens de fundo sempre que recarregado-->
+            <script src="login-background-img.js"></script>
         </div>
     </section>
     <script>
-        // Mostra o erro enviado pelo login.php (index_cardlogin.html?erro=1)
         if (new URLSearchParams(window.location.search).get('erro') === '1') {
             document.getElementById('mensagem').textContent = 'Email ou senha incorretos.';
         }
     </script>
 </body>
 </html>
-
 
 <script src="../indexes/temas.js"></script>

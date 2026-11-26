@@ -5,6 +5,10 @@
 --  Ordem de execução:  01_schema.sql -> 02_views.sql -> 03_procedures.sql
 --                      -> 04_seed_demo.sql (opcional) -> 05_events.sql (opcional)
 --
+--  ATENÇÃO: este script RECRIA todas as tabelas, EXCETO `usuario`
+--           (preservada para não perder as contas já cadastradas).
+--           Se `usuario` já existir na estrutura antiga, rode depois
+--           o bloco "MIGRAÇÃO DE usuario" no final deste arquivo.
 -- =============================================================================
 
 DROP DATABASE IF EXISTS GIE_DATA;
@@ -23,7 +27,7 @@ DROP TABLE IF EXISTS
   area, caixa_dagua, garden, sistema_irrigacao,
   sensor_ambiente, sensor_nivel, sensor_ph_agua, sensor_ph_solo,
   sensor_umidade, sensor_controle,
-  perfil;
+  perfil;                               -- removida: o sistema não tem cargos
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -181,7 +185,8 @@ CREATE TABLE area (
 -- =============================================================================
 -- 4. PLANTAS (catálogo), ESTÁGIOS E CULTIVO POR ÁREA
 -- =============================================================================
-
+-- Tabela de referência: transforma as constantes que estavam "hardcoded" no
+-- Java (3.0 / 2.0 / 0.5 L e as faixas de umidade) em parâmetros editáveis.
 CREATE TABLE ref_necessidade_agua (
   nivel            VARCHAR(20) NOT NULL,
   litros_irrigacao DOUBLE      NOT NULL COMMENT 'litros por irrigação, por espécie na área (regra do Java)',
@@ -210,7 +215,7 @@ CREATE TABLE plantas (
   CONSTRAINT ck_plantas_ph CHECK (ph_ideal_min >= 0 AND ph_ideal_max <= 14 AND ph_ideal_min < ph_ideal_max)
 ) ENGINE=InnoDB;
 
--- Estágios de maturação (verdes, maduros, brotos...)
+-- Estágios de maturação (verdes, maduros, brotos...) — antes era texto livre no Java
 CREATE TABLE estagio_planta (
   id_estagio SMALLINT    NOT NULL AUTO_INCREMENT,
   nome       VARCHAR(30) NOT NULL,
@@ -246,7 +251,7 @@ CREATE TABLE area_planta_estagio (
   CONSTRAINT ck_apest_qtd CHECK (quantidade >= 0)
 ) ENGINE=InnoDB;
 
--- "Notificar e Registrar Perda de Planta"
+-- "Notificar e Registrar Perda de Planta" (menu do produtor no GIE.jar)
 CREATE TABLE registro_perda (
   id_perda      BIGINT       NOT NULL AUTO_INCREMENT,
   fk_id_area    INT          NOT NULL,
@@ -283,7 +288,7 @@ CREATE TABLE insumo (
   CONSTRAINT ck_insumo_lmt CHECK (lmt_min IS NULL OR lmt_min >= 0)
 ) ENGINE=InnoDB;
 
--- Reposição de estoque
+-- Reposição de estoque (no Java só existia o estoque inicial)
 CREATE TABLE entrada_insumo (
   id_entrada    BIGINT       NOT NULL AUTO_INCREMENT,
   fk_id_insumo  INT          NOT NULL,
@@ -378,6 +383,9 @@ CREATE TABLE alerta (
 -- =============================================================================
 -- 7. RELATÓRIOS = "FOTOGRAFIAS" DAS ABAS DO DASHBOARD, SEMPRE COM DATA E HORA
 --    `relatorio` é o cabeçalho; cada aba tem sua tabela rel_*.
+--    Os valores são COPIADOS (inclusive nomes e faixas ideais): se o catálogo
+--    ou os limites mudarem amanhã, o relatório de ontem continua igual.
+--    As colunas fk_* apontam para a origem só por referência (SET NULL).
 -- =============================================================================
 CREATE TABLE relatorio (
   id_relatorio     BIGINT   NOT NULL AUTO_INCREMENT,
@@ -668,4 +676,11 @@ END$$
 
 DELIMITER ;
 
-
+-- =============================================================================
+-- MIGRAÇÃO DE `usuario` (rode SOMENTE se a tabela já existia na estrutura antiga,
+-- com apenas id_usuario, email e senha). Em instalação nova, ignore este bloco.
+-- =============================================================================
+-- ALTER TABLE usuario
+--   ADD COLUMN nome_comp VARCHAR(100) NOT NULL DEFAULT '' AFTER id_usuario,
+--   ADD COLUMN status    ENUM('ativo','inativo') NOT NULL DEFAULT 'ativo',
+--   ADD COLUMN criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
